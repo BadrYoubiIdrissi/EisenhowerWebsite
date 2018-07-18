@@ -7,7 +7,7 @@ let explName = {
     nurgNimp : "Not urgent and not Important",
 };
 
-class Quadrant extends React.Component{
+export default class Quadrant extends React.Component{
     render(){
         return (
             <ul>
