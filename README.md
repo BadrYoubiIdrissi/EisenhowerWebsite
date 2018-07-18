@@ -6,7 +6,7 @@ This is a website that implements the eisenhower matrix method of organising pri
 
 It utilises ReactJS as a front end engine and NodeJS.
 
-For the state management : Redux will be used.
+For the state management : Redux will be used
 
 The basic idea is that all tasks can be classified as Important/Not Important and Urgent/ Not urgent. And depending on which category the task falls into, we do it more or less quickcly. 
 
