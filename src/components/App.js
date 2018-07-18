@@ -1,5 +1,6 @@
 import React from "react";
 import Quadrant from "./Quadrants.js";
+import axios from "axios";
 
 class App extends React.Component{
     constructor(props){
@@ -19,6 +20,16 @@ class App extends React.Component{
             }   
         };
     }
+
+    componentDidMount() {
+        this.apiTest();
+    }
+
+    apiTest = async () => {
+        var resultat = await axios.get('/api');
+        console.log(resultat);
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         const name = event.target.name;
