@@ -7,7 +7,10 @@ class App extends React.Component{
         super(props);
         this.state = {
             tasks : {
-                urgImp : [],
+                urgImp : [{
+                    id: 1,
+                    description: "Je te nem cacâ <3"
+                }],
                 nurgImp : [],
                 urgNimp : [],
                 nurgNimp : [],
