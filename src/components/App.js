@@ -1,4 +1,6 @@
 import React from "react";
+import {connect} from "react-redux";
+import {addTask} from "../actions";
 import Quadrant from "./Quadrants.js";
 import axios from "axios";
 import {Grid} from "semantic-ui-react";
@@ -6,20 +8,18 @@ import {Grid} from "semantic-ui-react";
 class App extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            tasks : {
-                urgImp  : [],
-                nurgImp : [],
-                urgNimp : [],
-                nurgNimp: [],
-            },
+        this.state = this.defaultValues();
+    }
+
+    defaultValues() {
+        return { 
             values : {
                 urgImp   : "",
                 nurgImp  : "",
                 urgNimp  : "",
                 nurgNimp : "",
-            }
-        };
+            } 
+        }
     }
 
     componentDidMount() {
@@ -34,22 +34,8 @@ class App extends React.Component{
     handleSubmit = (event) => {
         event.preventDefault();
         const name = event.target.name;
-        const tasks = {...this.state.tasks};
-        const quadrantTasks = tasks[name].slice();
-        quadrantTasks.push({
-            id: quadrantTasks.length+1,
-            description: this.state.values[name],
-        });
-        tasks[name] = quadrantTasks;
-        this.setState({
-            tasks,
-            values : {
-                urgImp : "",
-                nurgImp : "",
-                urgNimp : "",
-                nurgNimp : "",
-            }   
-        });
+        this.props.addTask(name,this.state.values[name]);
+        this.setState(this.defaultValues);
     }
     handleChange = (event) => {
         const values = {...this.state.values};
@@ -66,14 +52,14 @@ class App extends React.Component{
                         <Quadrant 
                             key="nurgImp"
                             name="nurgImp"
-                            tasks={this.state.tasks["nurgImp"]}
+                            tasks={this.props.tasks["nurgImp"]}
                             onSubmit={this.handleSubmit.bind(this)}
                             onChange={this.handleChange.bind(this)} 
                             inputValue={this.state.values["nurgImp"]}/>
                         <Quadrant 
                             key={"urgImp"}
                             name={"urgImp"}
-                            tasks={this.state.tasks["urgImp"]}
+                            tasks={this.props.tasks["urgImp"]}
                             onSubmit={this.handleSubmit.bind(this)}
                             onChange={this.handleChange.bind(this)} 
                             inputValue={this.state.values["urgImp"]}/>
@@ -82,14 +68,14 @@ class App extends React.Component{
                         <Quadrant 
                             key={"nurgNimp"}
                             name={"nurgNimp"}
-                            tasks={this.state.tasks["nurgNimp"]}
+                            tasks={this.props.tasks["nurgNimp"]}
                             onSubmit={this.handleSubmit.bind(this)}
                             onChange={this.handleChange.bind(this)} 
                             inputValue={this.state.values["nurgNimp"]}/>
                         <Quadrant 
                             key={"urgNimp"}
                             name={"urgNimp"}
-                            tasks={this.state.tasks["urgNimp"]}
+                            tasks={this.props.tasks["urgNimp"]}
                             onSubmit={this.handleSubmit.bind(this)}
                             onChange={this.handleChange.bind(this)} 
                             inputValue={this.state.values["urgNimp"]}/>
@@ -100,4 +86,14 @@ class App extends React.Component{
     }
 }
 
-export default App;
+function mapStateToProps(state){
+    return {
+        tasks : state.tasks
+    }
+}
+
+const mapDispatchToProps = {
+    addTask
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
