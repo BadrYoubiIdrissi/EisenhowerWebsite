@@ -1,26 +1,24 @@
 import React from "react";
 import Quadrant from "./Quadrants.js";
 import axios from "axios";
+import {Grid} from "semantic-ui-react";
 
 class App extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             tasks : {
-                urgImp : [{
-                    id: 1,
-                    description: "Je te nem cacâ <3"
-                }],
+                urgImp  : [],
                 nurgImp : [],
                 urgNimp : [],
-                nurgNimp : [],
+                nurgNimp: [],
             },
             values : {
-                urgImp : "",
-                nurgImp : "",
-                urgNimp : "",
+                urgImp   : "",
+                nurgImp  : "",
+                urgNimp  : "",
                 nurgNimp : "",
-            }   
+            }
         };
     }
 
@@ -61,20 +59,42 @@ class App extends React.Component{
         });
     }
     render(){
-        let quadrants = [];
-        for (var key in this.state.tasks) {
-            quadrants.push(
-            <Quadrant 
-                key={key}
-                name={key}
-                tasks={this.state.tasks[key]}
-                onSubmit={this.handleSubmit.bind(this)}
-                onChange={this.handleChange.bind(this)} 
-                inputValue={this.state.values[key]}/>);
-        }
         return (
             <div className="app">
-                {quadrants}
+                <Grid>
+                    <Grid.Row>                
+                        <Quadrant 
+                            key="nurgImp"
+                            name="nurgImp"
+                            tasks={this.state.tasks["nurgImp"]}
+                            onSubmit={this.handleSubmit.bind(this)}
+                            onChange={this.handleChange.bind(this)} 
+                            inputValue={this.state.values["nurgImp"]}/>
+                        <Quadrant 
+                            key={"urgImp"}
+                            name={"urgImp"}
+                            tasks={this.state.tasks["urgImp"]}
+                            onSubmit={this.handleSubmit.bind(this)}
+                            onChange={this.handleChange.bind(this)} 
+                            inputValue={this.state.values["urgImp"]}/>
+                    </Grid.Row>
+                    <Grid.Row>    
+                        <Quadrant 
+                            key={"nurgNimp"}
+                            name={"nurgNimp"}
+                            tasks={this.state.tasks["nurgNimp"]}
+                            onSubmit={this.handleSubmit.bind(this)}
+                            onChange={this.handleChange.bind(this)} 
+                            inputValue={this.state.values["nurgNimp"]}/>
+                        <Quadrant 
+                            key={"urgNimp"}
+                            name={"urgNimp"}
+                            tasks={this.state.tasks["urgNimp"]}
+                            onSubmit={this.handleSubmit.bind(this)}
+                            onChange={this.handleChange.bind(this)} 
+                            inputValue={this.state.values["urgNimp"]}/>
+                    </Grid.Row>
+                </Grid>
             </div>
         );
     }

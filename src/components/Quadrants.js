@@ -1,4 +1,5 @@
 import React from "react";
+import {Form, Input} from "semantic-ui-react"; 
 
 let explName = {
     urgImp : "Urgent and Important",
@@ -14,11 +15,13 @@ export default class Quadrant extends React.Component{
                 {this.props.tasks.map((task, i) => {
                     return <li key={task.id}>{task.description}</li>;
                 })}
-                <form name = {this.props.name} onSubmit={this.props.onSubmit}>
-                    <legend>{explName[this.props.name]}</legend>
-                    <input name = {this.props.name} value = {this.props.inputValue} onChange={this.props.onChange}/>
-                </form>
+                <Form name = {this.props.name} onSubmit={this.props.onSubmit} size="big">
+                    <Form.Field>
+                        <label>{explName[this.props.name]}</label>
+                        <Input name = {this.props.name} value = {this.props.inputValue} onChange={this.props.onChange}/>
+                    </Form.Field>
+                </Form>
             </ul>
         );
     }
-}
+}Form
