@@ -24,4 +24,4 @@ export default class Quadrant extends React.Component{
             </ul>
         );
     }
-}Form
+}
