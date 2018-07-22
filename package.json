@@ -5,7 +5,6 @@
   "proxy": "http://localhost:5000",
   "dependencies": {
     "axios": "^0.18.0",
-    "babel-polyfill": "^6.26.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-grid-layout": "^0.16.6",
@@ -18,5 +17,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "node-sass": "^4.9.2"
   }
 }
