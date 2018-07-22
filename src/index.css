@@ -1,0 +1,64 @@
+#root, .app, body, html {
+    height:100%;
+}
+
+.app{
+    background-color: #fefefe;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#PostItBlocks{
+    display: flex;
+    flex-wrap: wrap;
+    width:70%;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+
+.PostItBlock{
+    display: flex;
+    margin: 2%;
+}
+
+.PostItBlock:after{
+    content: "";
+    padding-bottom: 100%;
+    display: block; 
+}
+
+.PostItBlock input{
+    border-radius:0;
+    text-align: center;
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.PostItBlock *{
+    background:rgba(0,0,0,0)
+}
+
+#URGENT_IMPORTANT{
+    background-color: #fabcbc;
+}
+
+#N_URGENT_IMPORTANT{
+
+    background-color: #fbfba4;
+
+}
+
+#URGENT_N_IMPORTANT{
+
+    background-color: #74cbc3;
+
+}
+
+#N_URGENT_N_IMPORTANT{
+
+    background-color: #cbe3d3;
+
+}

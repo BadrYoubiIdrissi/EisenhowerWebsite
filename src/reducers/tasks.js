@@ -1,4 +1,5 @@
 import {actions} from "../actions";
+import {categories} from "../constants";
 
 export function tasks(state, action){
     switch(action.type) {
@@ -13,24 +14,23 @@ export function tasks(state, action){
             tasks[name] = quadrantTasks;
             return tasks;
         default:
-            var defaultTasks = {
-                urgImp  : [{
+            var defaultTasks = {};
+            defaultTasks[categories.URGENT_IMPORTANT] = [{
                     id: 1,
                     description: "This is a sample urgent and important task"
-                }],
-                nurgImp : [{
+                }];
+            defaultTasks[categories.N_URGENT_IMPORTANT] = [{
                     id: 1,
                     description: "Not so urgent but still important!"
-                }],
-                urgNimp : [{
+                }];
+            defaultTasks[categories.URGENT_N_IMPORTANT] = [{
                     id: 1,
                     description: "Wouldn't you like to delegate this?"
-                }],
-                nurgNimp: [{
+                }];
+            defaultTasks[categories.N_URGENT_N_IMPORTANT] = [{
                     id: 1,
                     description: "Oh come ooooon! There's plenty of time to procrastinate"
-                }],
-            };
+                }];
             return defaultTasks;
     }
 }
