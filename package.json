@@ -8,13 +8,10 @@
     "babel-polyfill": "^6.26.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-grid-layout": "^0.16.6",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
-    "redux": "^4.0.0",
-    "semantic-ui-react": "^0.82.0"
-  },
-  "devDependencies": {
-    "semantic-ui-css": "^2.3.3"
+    "redux": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
