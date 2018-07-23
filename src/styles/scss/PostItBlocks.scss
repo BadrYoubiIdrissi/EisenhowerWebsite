@@ -1,0 +1,103 @@
+@import "breakpoints";
+
+#PostItBlocks{
+    align-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    
+    @include for-phone-only{
+        width: 90%;
+    }
+    @include for-tablet-portrait-up{
+        width:90%;
+    }
+    @include for-desktop-up{
+        width:50%;
+    }
+    
+    margin: 2% 0% 2% 0%;
+    justify-content: space-around;
+    align-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.PostItBlock{
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+    box-shadow: 0px 0px 7px rgba(100,100,100,0.5);
+    transition: transform 1s;
+    transform-origin: bottom;
+    @include for-phone-only{
+        width: 40%;
+    }
+    @include for-tablet-portrait-up{
+        width: 20%;
+    }
+    @include for-desktop-up{
+        font-size:2em;
+    }
+    margin: 2% 0% 2% 0%;
+}
+
+.PostItBlock:after{
+    content: "";
+    display: block; 
+    @include for-phone-only {
+        padding-bottom: 50%;
+    }
+    @include for-tablet-portrait-up{
+        padding-bottom: 50%;
+    }
+    @include for-tablet-landscape-up{
+        padding-bottom: 30%;
+    }
+    @include for-desktop-up{
+        padding-bottom: 100%;
+    }
+}
+
+.PostItBlock input{
+    border-radius:0;
+    border:0;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    padding:0; 
+    font-family: 'Bad Script';
+}
+
+.PostItBlock:hover{
+    transform: scale(1.4);
+}
+
+
+.PostItBlock *{
+    background: rgba(0,0,0,0); 
+}
+
+.PostItBlock input:focus{
+    outline: none;
+}
+
+#URGENT_IMPORTANT{
+    background-color: #fabcbc;
+}
+
+#N_URGENT_IMPORTANT{
+
+    background-color: #FFF9A5;
+
+}
+
+#URGENT_N_IMPORTANT{
+
+    background-color: #74cbc3;
+
+}
+
+#N_URGENT_N_IMPORTANT{
+
+    background-color: #cbe3d3;
+
+}

@@ -1,0 +1,22 @@
+@import "breakpoints";
+
+#Matrix{
+    @include for-phone-only{
+        width: 95%;
+    }
+    @include for-tablet-portrait-up{
+        width: 90%;
+    }
+    @include for-tablet-landscape-up{
+        width: 80%;
+    }
+    @include for-desktop-up{
+        width:70%;
+    }
+    background: rgba(200,200,200,0.5);
+    margin-top: 2%;
+}
+
+#Matrix .PostIt {
+    background: rgba(20,200,200,0.5);
+}

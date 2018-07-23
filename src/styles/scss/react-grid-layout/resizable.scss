@@ -1,0 +1,25 @@
+/* This styling is courtesy of the React-Resizable module.
+ I have imported it into my Eisenhower project for customisation purposes */
+
+ @import "../breakpoints";
+
+.react-resizable {
+    position: relative;
+}
+.react-resizable-handle {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    bottom: 0;
+    right: 0;
+    background: url(ResizeHandle.svg);
+    background-size: 13px 13px; 
+    background-position: bottom right;
+    padding: 0 3px 3px 0;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    box-sizing: border-box;
+    mix-blend-mode: multiply;
+    cursor: se-resize;
+}
+  
