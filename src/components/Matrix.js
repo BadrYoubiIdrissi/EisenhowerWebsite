@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Responsive, WidthProvider} from "react-grid-layout";
+import {connect} from "react-redux";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-export default class Matrix extends React.Component{
+class Matrix extends React.Component{
     constructor(props){
       super(props)
       this.default = {
@@ -37,15 +38,34 @@ export default class Matrix extends React.Component{
     onBreakPointChange = (breakpoint) => {
       this.setState({currentBreakpoint:breakpoint})
     }
+
+    generateLayouts(){
+      var layouts = {lg : []};
+
+      layouts.lg = this.props.tasks.map(function(task, i){
+        return {
+          i : String(task.id),
+          x : task.importance,
+          y : task.urgence,
+          w : task.width,
+          h : task.height
+        }
+      });
+
+      return layouts;
+    }
+
+    generatePostIts(){
+      return this.props.tasks.map((task, i) => 
+      <div key={task.id} className="PostIt">
+        <p className="description">
+          {task.name}
+        </p>
+      </div>
+    );
+    }
+
     render() {
-        // layout is an array of objects, see the demo for more complete usage
-        var layouts = {
-          lg : [
-          {i: 'a', x: 0, y: 0, w: 1, h: 1},
-          {i: 'b', x: 1, y: 0, w: 1, h: 1},
-          {i: 'c', x: 2, y: 0, w: 1, h: 1}
-          ]
-        };
         return (
         <div id="Matrix">
           <div id="ImportanceArrow"/>
@@ -55,17 +75,24 @@ export default class Matrix extends React.Component{
           <div id="UrgenceLabel">Urgence</div>
           <div id="ImportanceLabel">Importance</div>        
           <ResponsiveGridLayout
-            layouts={layouts}
+            layouts={this.generateLayouts()}
             cols={this.default.cols}
             breakpoints={this.default.breakpoints}
             rowHeight={this.state.rowHeight}
             onBreakpointChange={this.onBreakPointChange}
-            compactType={null}>
-            <div className="PostIt" key="a"></div>
-            <div className="PostIt" key="b"></div>
-            <div className="PostIt" key="c"></div>
+            compactType={null}
+            preventCollision={true}>
+            {this.generatePostIts()}
           </ResponsiveGridLayout>
         </div>
         )
       }
 }
+
+function mapStateToProps(state){
+  return {
+    tasks : state.tasks
+  }
+}
+
+export default connect(mapStateToProps, null)(Matrix);
