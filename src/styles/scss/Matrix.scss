@@ -1,7 +1,7 @@
 @import "breakpoints";
 
-$arrowSize: 0.4em;
-$axisSize: 0.1em;
+$arrowSize: 0.5em;
+$axisSize: 0.15em;
 $axisColor: #5353C1;
 $labelSize: 1em;
 
@@ -20,6 +20,13 @@ $labelSize: 1em;
     }
     position: relative;
     margin-top: 3*$labelSize;
+}
+
+#Matrix .PostIt {
+    background: rgba(20,200,200,0.5);
+    text-align: center;
+    overflow: hidden;
+    font-size: 1em;
 }
 
 #UrgenceLabel{
@@ -82,8 +89,4 @@ $labelSize: 1em;
     left: 0;
     width: $axisSize;
     background-color: $axisColor;
-}
-
-#Matrix .PostIt {
-    background: rgba(20,200,200,0.5);
 }
