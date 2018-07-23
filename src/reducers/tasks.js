@@ -4,33 +4,58 @@ import {categories} from "../constants";
 export function tasks(state, action){
     switch(action.type) {
         case actions.ADD_TODO:
-            var name = action.task.category;
-            const tasks = {...state};
-            const quadrantTasks = tasks[name].slice();
-            quadrantTasks.push({
-                id: quadrantTasks.length+1,
-                description: action.task.content,
+            const tasks = state.slice();
+            const maxUrg = Math.max(...tasks.map((task, i)=> task.urgence));
+            console.log(maxUrg);
+            tasks.push({
+                id: tasks.length+1,
+                name: action.task.content,
+                description: "",
+                category: action.task.category,
+                width: 2,
+                height: 2,
+                urgence: maxUrg + 2,
+                importance: 0
             });
-            tasks[name] = quadrantTasks;
             return tasks;
         default:
-            var defaultTasks = {};
-            defaultTasks[categories.URGENT_IMPORTANT] = [{
-                    id: 1,
-                    description: "This is a sample urgent and important task"
-                }];
-            defaultTasks[categories.N_URGENT_IMPORTANT] = [{
-                    id: 1,
-                    description: "Not so urgent but still important!"
-                }];
-            defaultTasks[categories.URGENT_N_IMPORTANT] = [{
-                    id: 1,
-                    description: "Wouldn't you like to delegate this?"
-                }];
-            defaultTasks[categories.N_URGENT_N_IMPORTANT] = [{
-                    id: 1,
-                    description: "Oh come ooooon! There's plenty of time to procrastinate"
-                }];
+            var defaultTasks = [{
+                id: 1,
+                name: "Urgent and Important",
+                description: "This is a sample urgent and important task",
+                category: categories.URGENT_IMPORTANT,
+                importance: 2,
+                urgence: 0,
+                width: 2,
+                height: 2
+            },{
+                id: 2,
+                name: "Not Urgent and Important",
+                description: "Not so urgent but still important!",
+                category: categories.N_URGENT_IMPORTANT,
+                importance: 2,
+                urgence: 2,
+                width: 2,
+                height: 2
+            },{
+                id: 3,
+                name: "Urgent and Not Important",
+                description: "Wouldn't you like to delegate this?",
+                category: categories.URGENT_N_IMPORTANT,
+                importance: 0,
+                urgence: 0,
+                width: 2,
+                height: 2
+            },{
+                id: 4,
+                name: "Not Urgent and Not Important",
+                description: "Oh come ooooon! There's plenty of time to procrastinate",
+                category: categories.N_URGENT_IMPORTANT,
+                importance: 0,
+                urgence: 2,
+                width: 2,
+                height: 2
+            }];
             return defaultTasks;
     }
 }
