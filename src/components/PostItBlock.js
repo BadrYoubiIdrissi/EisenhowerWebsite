@@ -33,15 +33,8 @@ class PostItBlock extends React.Component{
     }
 }
 
-
-function mapStateToProps(state){
-    return {
-        tasks : state.tasks
-    }
-}
-
 const mapDispatchToProps = {
     addTask
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostItBlock);
+export default connect(null, mapDispatchToProps)(PostItBlock);

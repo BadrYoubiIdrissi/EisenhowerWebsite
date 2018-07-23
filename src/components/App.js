@@ -7,7 +7,7 @@ export default class App extends React.Component{
     render(){
         return (
             <div className="app">
-                <Matrix tasks={this.props.tasks}/>
+                <Matrix/>
                 <div id="PostItBlocks">
                     <PostItBlock id={categories.N_URGENT_N_IMPORTANT}/>
                     <PostItBlock id={categories.URGENT_N_IMPORTANT}/>
