@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "node-sass src/styles/scss -o src/styles/css && react-scripts build",
+    "build": "node-sass -r src/styles/scss -o src/styles/css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

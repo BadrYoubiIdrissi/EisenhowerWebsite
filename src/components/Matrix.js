@@ -23,6 +23,15 @@ export default class Matrix extends React.Component{
         }
       } 
     }
+
+    componentDidMount(){
+      var node = ReactDOM.findDOMNode(this);
+      if (node instanceof HTMLElement){
+        var rowHeight = node.offsetWidth / this.default.cols[this.state.currentBreakpoint]/2;
+        this.setState({rowHeight});
+      } 
+    }
+
     onBreakPointChange = (breakpoint) => {
       this.setState({currentBreakpoint:breakpoint})
     }
@@ -40,7 +49,9 @@ export default class Matrix extends React.Component{
           <ResponsiveGridLayout
             layouts={layouts}
             rowHeight={this.state.rowHeight}
-            onBreakpointChange={this.onBreakPointChange}>
+            onBreakpointChange={this.onBreakPointChange}
+            verticalCompact={false}
+            compactType='horizontal'>
             <div className="PostIt" key="a">a</div>
             <div className="PostIt" key="b">b</div>
             <div className="PostIt" key="c">c</div>
