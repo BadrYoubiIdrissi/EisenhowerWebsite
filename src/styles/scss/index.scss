@@ -17,6 +17,8 @@
 
 #root, .app, body, html {
     height:100%;
+    background: linear-gradient(to top right, rgb(240,240,240), rgb(250,250,250));
+    margin:0;
 }
  
 .app{
@@ -30,16 +32,18 @@
     display: flex;
     flex-wrap: wrap;
     width:70%;
-    justify-content: center;
+    justify-content: space-around;
+    align-content: space-around;
     flex-direction: row-reverse;
+    margin-bottom: 2%;
 }
 
 .PostItBlock{
     display: flex;
-    margin: 2%;
-    border: 10px solid transparent;
-    border-image: url(../../images/Border.png) stretch;
-    background-clip: padding-box;
+    box-shadow: 0px 0px 7px rgba(100,100,100,0.5);
+    transition: transform 1s;
+    transform-origin: bottom;
+    margin: 2% 0 2% 0;
 }
 
 .PostItBlock:after{
@@ -60,7 +64,14 @@
     text-align: center;
     width: 100%;
     height: 100%;
+    padding:0; 
+    font-family: 'Bad Script';
 }
+
+.PostItBlock:hover{
+    transform: scale(1.4);
+}
+
 
 .PostItBlock *{
     background: rgba(0,0,0,0);
@@ -76,7 +87,7 @@
 
 #N_URGENT_IMPORTANT{
 
-    background-color: #fbfba4;
+    background-color: #FFF9A5;
 
 }
 
