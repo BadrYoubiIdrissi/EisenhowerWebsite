@@ -47,18 +47,23 @@ export default class Matrix extends React.Component{
           ]
         };
         return (
-        <div id="Matrix">        
+        <div id="Matrix">
+          <div id="ImportanceArrow"/>
+          <div id="UrgenceArrow"/>
+          <div id="ImportanceAxis"/>  
+          <div id="UrgenceAxis"/>
+          <div id="UrgenceLabel">Urgence</div>
+          <div id="ImportanceLabel">Importance</div>        
           <ResponsiveGridLayout
             layouts={layouts}
             cols={this.default.cols}
             breakpoints={this.default.breakpoints}
             rowHeight={this.state.rowHeight}
             onBreakpointChange={this.onBreakPointChange}
-            verticalCompact={false}
-            compactType='horizontal'>
-            <div className="PostIt" key="a">a</div>
-            <div className="PostIt" key="b">b</div>
-            <div className="PostIt" key="c">c</div>
+            compactType={null}>
+            <div className="PostIt" key="a"></div>
+            <div className="PostIt" key="b"></div>
+            <div className="PostIt" key="c"></div>
           </ResponsiveGridLayout>
         </div>
         )

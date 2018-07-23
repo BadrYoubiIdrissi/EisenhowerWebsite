@@ -1,5 +1,10 @@
 @import "breakpoints";
 
+$arrowSize: 0.4em;
+$axisSize: 0.1em;
+$axisColor: #5353C1;
+$labelSize: 1em;
+
 #Matrix{
     @include for-phone-only{
         width: 95%;
@@ -13,8 +18,70 @@
     @include for-desktop-up{
         width:70%;
     }
-    background: rgba(200,200,200,0.5);
-    margin-top: 2%;
+    position: relative;
+    margin-top: 3*$labelSize;
+}
+
+#UrgenceLabel{
+    position: absolute;
+    bottom: -2*$labelSize;
+    font-family: 'Bad Script';
+    font-size: $labelSize;
+    right: 0;
+}
+
+#UrgenceArrow{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform:translate((-$arrowSize/2)+($axisSize/2),-$arrowSize);
+
+    width: 0; 
+    height: 0; 
+    border-left: $arrowSize/2 solid transparent;
+    border-right: $arrowSize/2 solid transparent;
+    
+    border-bottom: $arrowSize solid $axisColor;
+    z-index: 3;
+}
+
+#UrgenceAxis{
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    height: $axisSize;
+    background-color: $axisColor;
+    z-index:2;
+}
+
+#ImportanceLabel{
+    position: absolute;
+    left: 0.5*$labelSize;
+    top:-2*$labelSize;
+    font-family: 'Bad Script';
+    font-size: $labelSize;
+}
+
+#ImportanceArrow{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform:translate($arrowSize,($arrowSize/2)+($axisSize/2));
+
+    width: 0; 
+    height: 0; 
+    border-left: $arrowSize solid $axisColor;
+    border-top: $arrowSize/2 solid transparent;
+    border-bottom: $arrowSize/2 solid transparent;
+    z-index: 3;
+}
+
+#ImportanceAxis{
+    position: absolute;
+    height: 100%;
+    left: 0;
+    width: $axisSize;
+    background-color: $axisColor;
 }
 
 #Matrix .PostIt {
