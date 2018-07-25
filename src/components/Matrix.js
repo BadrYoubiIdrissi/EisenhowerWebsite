@@ -18,22 +18,37 @@ class Matrix extends React.Component{
         task : null,
         ref : React.createRef()
       }
+
+      const {urgencyLimit, importanceLimit} = this.calculateLimits();
+
       this.state = {
         currentBreakpoint : "lg",
-        rowHeight : 130
+        itemWidth: 150,
+        urgencyLimit,
+        importanceLimit,
       }
+
       this.setItemWidth = this.setItemWidth.bind(this);
       this.onLayoutChange = this.onLayoutChange.bind(this);
       this.onDragStop = this.onDragStop.bind(this);
       this.onResizeStop = this.onResizeStop.bind(this);
     }
 
-    setRowHeight = () => {
-      var node = ReactDOM.findDOMNode(this);
-      if (node instanceof HTMLElement){
-        var rowHeight = node.offsetWidth / this.default.cols[this.state.currentBreakpoint];
-        this.setState({rowHeight});
-      } 
+    calculateLimits(){
+      const tasks = this.props.tasks;
+      var maxUrg = getMax(tasks, "urgence");
+      var maxImp = getMax(tasks, "importance");
+      var urgTask = getMost(tasks.filter(task => task.urgence === maxUrg), "height");
+      var impTask = getMost(tasks.filter(task => task.importance === maxImp), "width");
+      
+      return {
+          urgencyLimit: urgTask.urgence+urgTask.height,
+          importanceLimit: impTask.importance+impTask.width
+        };
+    }
+
+    updateLimits(){
+      this.setState(this.calculateLimits);
     }
 
     setItemWidth() {
@@ -86,8 +101,8 @@ class Matrix extends React.Component{
         return (
           <div key={task.id} ref={ref}>
             <PostIt task={task}/>
-      </div>
-    );
+          </div>
+        );
       }.bind(this));
     }
     onResize(layout, oldItem, newItem, placeholder){
@@ -102,12 +117,12 @@ class Matrix extends React.Component{
       || (w === 1 && h === 1)){
         w=1;
         h=1;
-    }
+      }
       else if(w === 2 && h === 2){
         w=2;
         h=2;
       }
-
+      
       newItem.w=w;
       placeholder.w=w;
       newItem.h=h;
@@ -121,31 +136,48 @@ class Matrix extends React.Component{
     onDragStop(layout, oldItem, newItem){
       this.props.moveTask(newItem.i, newItem.y, newItem.x);
     }
+
+    onLayoutChange(){
+      this.updateLimits();
+    }
+
     render() {
-        return (
-        <div id="Matrix">
-          <div id="ImportanceArrow"/>
-          <div id="UrgenceArrow"/>
-          <div id="ImportanceAxis"/>  
-          <div id="UrgenceAxis"/>
-          <div id="UrgenceLabel">Urgence</div>
-          <div id="ImportanceLabel">Importance</div>        
-          <ResponsiveGridLayout
-            layouts={this.generateLayouts()}
-            cols={this.default.cols}
-            breakpoints={this.default.breakpoints}
+      const horDelStyle = {top:`${this.state.urgencyLimit*(this.state.itemWidth+10)+5}px`};
+      const verDelStyle = {left:`${this.state.importanceLimit*(this.state.itemWidth+10)+5}px`};
+      const urgDelim = (<div 
+        className={"horDelim"}
+        style={horDelStyle}/>);
+      const impDelim = (<div 
+        className={"verDelim"}
+        style={verDelStyle}/>);
+
+      return (
+      <div id="Matrix">
+        {urgDelim}
+        {impDelim}
+        <div id="ImportanceArrow"/>
+        <div id="UrgenceArrow"/>
+        <div id="ImportanceAxis"/>  
+        <div id="UrgenceAxis"/>
+        <div id="UrgenceLabel">Urgence</div>
+        <div id="ImportanceLabel">Importance</div>   
+        <ResponsiveGridLayout
+          layouts={this.generateLayouts()}
+          cols={this.default.cols}
+          breakpoints={this.default.breakpoints}
           rowHeight={this.state.itemWidth}
-            onBreakpointChange={this.onBreakPointChange}
-            compactType={null}
+          onBreakpointChange={this.onBreakPointChange}
+          compactType={null}
           onResize={this.onResize}
           onResizeStop={this.onResizeStop}
           preventCollision={true}
+          onLayoutChange={this.onLayoutChange}
           onDragStop={this.onDragStop}>
-            {this.generatePostIts()}
-          </ResponsiveGridLayout>
-        </div>
-        )
-      }
+          {this.generatePostIts()}
+        </ResponsiveGridLayout>
+      </div>
+      )
+    }
 }
 
 function mapStateToProps(state){
@@ -154,4 +186,9 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, null)(Matrix);
+const mapDispatchToProps = {
+  moveTask,
+  resizeTask
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Matrix);
