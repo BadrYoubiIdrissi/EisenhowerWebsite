@@ -11,4 +11,27 @@ export function addTask(category, taskContent) {
       category,
       content: taskContent
     }
+  };
+}
+
+export function moveTask(id, urgence, importance) {
+  return {
+    type: actions.MOVE_TASK,
+    task: {
+      id,
+      urgence,
+      importance
+    }
+  };
+}
+
+export function resizeTask(id, width, height) {
+  return {
+      type: actions.RESIZE_TASK,
+      task: {
+        id,
+        width,
+        height
+      }
+  };
 }
