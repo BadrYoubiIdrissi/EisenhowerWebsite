@@ -12,6 +12,8 @@
 #css files
 /src/styles/css
 
+*.zip
+
 # misc
 .DS_Store
 .env.local
