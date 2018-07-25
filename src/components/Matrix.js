@@ -139,6 +139,7 @@ class Matrix extends React.Component{
             compactType={null}
           onResize={this.onResize}
           onResizeStop={this.onResizeStop}
+          preventCollision={true}
           onDragStop={this.onDragStop}>
             {this.generatePostIts()}
           </ResponsiveGridLayout>
