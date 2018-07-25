@@ -1,14 +1,14 @@
 import {actions} from "../actions";
 import {categories} from "../constants";
 
-export function tasks(state, action){
-    switch(action.type) {
-        case actions.ADD_TODO:
-            const tasks = state.slice();
-            const maxUrg = Math.max(...tasks.map((task, i)=> task.urgence));
-            console.log(maxUrg);
+export function tasks(state, action) {
+  var tasks = state ? state.slice() : null;
+  var task;
+  switch (action.type) {
+    case actions.ADD_TASK:
+      var maxUrg = getMax(tasks, "urgence");
             tasks.push({
-                id: tasks.length+1,
+        id: tasks.length + 1,
                 name: action.task.content,
                 description: "",
                 category: action.task.category,
