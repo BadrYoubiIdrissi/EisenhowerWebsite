@@ -24,6 +24,9 @@ class PostItBlock extends React.Component{
     render(){
         return (
             <form className="PostItBlock" id={this.category} onSubmit={this.handleSubmit}>
+                <div className="shadow"/>
+                <div className="texture"/>
+                <div className="light"/>
                 <input 
                     name = {this.props.name}
                     value = {this.state.value}
