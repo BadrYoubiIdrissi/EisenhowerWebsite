@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import {Responsive, WidthProvider} from "react-grid-layout";
 import {connect} from "react-redux";
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -11,10 +10,16 @@ class Matrix extends React.Component{
         breakpoints: {lg: 1800*0.70, md: 1200*0.7, sm: 900*0.9, xs: 600*0.95},
         cols: {lg: 12, md: 10, sm: 6, xs: 4, xxs:2}
       }
+      this.firstItem = {
+        task : null,
+        ref : React.createRef()
+      }
       this.state = {
         currentBreakpoint : "lg",
         rowHeight : 130
       }
+      this.setItemWidth = this.setItemWidth.bind(this);
+      this.onLayoutChange = this.onLayoutChange.bind(this);
     }
 
     setRowHeight = () => {
@@ -25,14 +30,22 @@ class Matrix extends React.Component{
       } 
     }
 
+    setItemWidth() {
+      if (this.firstItem.ref.current instanceof HTMLElement){
+        const paddingOffset = this.firstItem.task.width === 2 ? 5 : 0
+        const itemWidth = this.firstItem.ref.current.offsetWidth/this.firstItem.task.width - paddingOffset;
+        this.setState({itemWidth});
+      } 
+    }
     componentDidMount(){
-      window.addEventListener("resize", this.setRowHeight);
-      window.addEventListener("load", this.setRowHeight)
-      this.setRowHeight();
+      window.addEventListener("resize", this.setItemWidth);
+      window.addEventListener("load", this.setItemWidth)
+      this.setItemWidth();
     }
 
     componentWillUnmount(){
-      window.removeEventListener("resize", this.setRowHeight);
+      window.removeEventListener("resize", this.setItemWidth);
+      window.removeEventListener("load", this.setItemWidth);
     }
 
     onBreakPointChange = (breakpoint) => {
@@ -78,7 +91,7 @@ class Matrix extends React.Component{
             layouts={this.generateLayouts()}
             cols={this.default.cols}
             breakpoints={this.default.breakpoints}
-            rowHeight={this.state.rowHeight}
+          rowHeight={this.state.itemWidth}
             onBreakpointChange={this.onBreakPointChange}
             compactType={null}
             preventCollision={true}>
