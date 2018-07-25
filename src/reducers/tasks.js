@@ -18,6 +18,16 @@ export function tasks(state, action) {
                 importance: 0
             });
             return tasks;
+    case actions.MOVE_TASK:
+      task = tasks.find(task => (task.id === action.task.id));
+      task.urgence = action.task.urgence;
+      task.importance = action.task.importance;
+      return tasks;
+    case actions.RESIZE_TASK:
+      task = tasks.find(task => (task.id === action.task.id));
+      task.width = action.task.width;
+      task.height = action.task.height;
+      return tasks;
         default:
             var defaultTasks = [{
                 id: 1,
