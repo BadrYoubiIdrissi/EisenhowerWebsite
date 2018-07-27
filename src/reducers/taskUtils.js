@@ -16,8 +16,6 @@ export function getMost(tasks, key, min = 0) {
 export function getMax(tasks, key, min=0){
   return getMost(tasks, key, min)[key];
 }
-  return getMost(tasks, key, min)[key];
-}
 
 export function getUrgenceImportance(x, y, category, limit){
   var origins = getOrigins(limit);
@@ -96,3 +94,18 @@ export function addTask(state, action){
   };
 }
 
+export function moveTask(state, action){
+  var tasks = state.tasks.slice();
+  var limit = {...state.limit};
+  var task = tasks.find(task => (task.id === action.task.id));
+  task.category = getCategory(action.task.newX, action.task.newY, state.limit);
+  const localPosition = getUrgenceImportance(action.task.newX, action.task.newY, task.category, state.limit)
+  task.urgence = localPosition.urgence;
+  task.importance = localPosition.importance;
+  correctCollisions(tasks, limit);
+  return {
+    tasks,
+    limit,
+    breakpoint: state.breakpoint
+  };
+}
