@@ -15,14 +15,7 @@ class Matrix extends React.Component{
         ref : React.createRef()
       }
 
-      const {urgencyLimit, importanceLimit} = this.calculateLimits();
 
-      this.state = {
-        currentBreakpoint : "lg",
-        itemWidth: 150,
-        urgencyLimit,
-        importanceLimit,
-      }
 
       this.setItemWidth = this.setItemWidth.bind(this);
       this.onLayoutChange = this.onLayoutChange.bind(this);
@@ -30,22 +23,6 @@ class Matrix extends React.Component{
       this.onResizeStop = this.onResizeStop.bind(this);
     }
 
-    calculateLimits(){
-      const tasks = this.props.tasks;
-      var maxUrg = getMax(tasks, "urgence");
-      var maxImp = getMax(tasks, "importance");
-      var urgTask = getMost(tasks.filter(task => task.urgence === maxUrg), "height");
-      var impTask = getMost(tasks.filter(task => task.importance === maxImp), "width");
-      
-      return {
-          urgencyLimit: urgTask.urgence+urgTask.height,
-          importanceLimit: impTask.importance+impTask.width
-        };
-    }
-
-    updateLimits(){
-      this.setState(this.calculateLimits);
-    }
 
     setItemWidth() {
       if (this.firstItem.ref.current instanceof HTMLElement){
@@ -65,8 +42,6 @@ class Matrix extends React.Component{
       window.removeEventListener("load", this.setItemWidth);
     }
 
-    onBreakPointChange = (breakpoint) => {
-      this.setState({currentBreakpoint:breakpoint})
     }
 
     generateLayouts(){
@@ -133,8 +108,6 @@ class Matrix extends React.Component{
       this.props.moveTask(newItem.i, newItem.y, newItem.x);
     }
 
-    onLayoutChange(){
-      this.updateLimits();
     }
 
     render() {
@@ -178,13 +151,16 @@ class Matrix extends React.Component{
 
 function mapStateToProps(state){
   return {
-    tasks : state.tasks
+    tasks : state.layout.tasks,
+    limit : state.layout.limit,
+    breakpoint : state.layout.breakpoint
   }
 }
 
 const mapDispatchToProps = {
   moveTask,
-  resizeTask
+  resizeTask,
+  changeCurrentBreakpoint,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Matrix);
