@@ -2,8 +2,9 @@ import React from "react";
 import {Responsive, WidthProvider} from "react-grid-layout";
 import {connect} from "react-redux";
 import PostIt from "./PostIt";
-import {moveTask, resizeTask} from "../actions";
-import {getMost, getMax} from "../taskUtils";
+import {moveTask, resizeTask, changeCurrentBreakpoint} from "../actions";
+import {getOrigins} from "../reducers/layoutUtils";
+import {breakpoints, cols} from "../constants";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 class Matrix extends React.Component{
@@ -35,11 +36,12 @@ class Matrix extends React.Component{
 
     generateLayouts(){
       var layouts = {};
+      const origins = getOrigins(this.props.limit);
       layouts[this.props.breakpoint] = this.props.tasks.map(function(task, i){
         return {
           i : String(task.id),
-          x : task.importance,
-          y : task.urgence,
+          x : origins[task.category].importance+task.importance,
+          y : origins[task.category].urgence+task.urgence,
           w : task.width,
           h : task.height
         }
@@ -118,7 +120,7 @@ class Matrix extends React.Component{
         const paddingOffset = this.firstItem.task.width === 2 ? 5 : 0
         const itemWidth = this.firstItem.ref.current.offsetWidth/this.firstItem.task.width - paddingOffset;
         this.setState({itemWidth});
-    }
+      } 
     }
 
     render() {
@@ -130,7 +132,6 @@ class Matrix extends React.Component{
       const impDelim = (<div 
         className={"verDelim"}
         style={verDelStyle}/>);
-
       return (
       <div id="Matrix">
         {urgDelim}
@@ -143,16 +144,16 @@ class Matrix extends React.Component{
         <div id="ImportanceLabel">Importance</div>   
         <ResponsiveGridLayout
           layouts={this.generateLayouts()}
-          cols={this.default.cols}
-          breakpoints={this.default.breakpoints}
+          cols={cols}
+          breakpoints={breakpoints}
           rowHeight={this.state.itemWidth}
           onBreakpointChange={this.onBreakPointChange}
           compactType={null}
           onResize={this.onResize}
           onResizeStop={this.onResizeStop}
-          preventCollision={true}
           onLayoutChange={this.onLayoutChange}
           onDragStop={this.onDragStop}
+          preventCollision={true}>
           {this.generatePostIts()}
         </ResponsiveGridLayout>
       </div>
