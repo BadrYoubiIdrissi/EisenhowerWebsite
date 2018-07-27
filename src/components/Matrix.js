@@ -16,32 +16,20 @@ class Matrix extends React.Component{
       }
 
 
-
-      this.setItemWidth = this.setItemWidth.bind(this);
-      this.onLayoutChange = this.onLayoutChange.bind(this);
+      this.onWidthChange = this.onWidthChange.bind(this);
       this.onDragStop = this.onDragStop.bind(this);
       this.onResizeStop = this.onResizeStop.bind(this);
     }
 
-
-    setItemWidth() {
-      if (this.firstItem.ref.current instanceof HTMLElement){
-        const paddingOffset = this.firstItem.task.width === 2 ? 5 : 0
-        const itemWidth = this.firstItem.ref.current.offsetWidth/this.firstItem.task.width - paddingOffset;
-        this.setState({itemWidth});
-      } 
-    }
     componentDidMount(){
-      window.addEventListener("resize", this.setItemWidth);
-      window.addEventListener("load", this.setItemWidth)
-      this.setItemWidth();
+      window.addEventListener("resize", this.onWidthChange);
+      window.addEventListener("load", this.onWidthChange);
+      this.onWidthChange();
+      this.onBreakPointChange("lg");
     }
-
     componentWillUnmount(){
-      window.removeEventListener("resize", this.setItemWidth);
-      window.removeEventListener("load", this.setItemWidth);
-    }
-
+      window.removeEventListener("resize", this.onWidthChange);
+      window.removeEventListener("load", this.onWidthChange);
     }
 
     generateLayouts(){
@@ -108,6 +96,12 @@ class Matrix extends React.Component{
       this.props.moveTask(newItem.i, newItem.y, newItem.x);
     }
 
+    onWidthChange() {
+      if (this.firstItem.ref.current instanceof HTMLElement){
+        const paddingOffset = this.firstItem.task.width === 2 ? 5 : 0
+        const itemWidth = this.firstItem.ref.current.offsetWidth/this.firstItem.task.width - paddingOffset;
+        this.setState({itemWidth});
+    }
     }
 
     render() {
