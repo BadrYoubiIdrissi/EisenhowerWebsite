@@ -1,4 +1,6 @@
 import { categories, cols} from "../constants";
+import { correctCollisions } from "./taskUtils";
+
 export function getCategory(x ,y , limit){
   if (y >= limit.urgence){
     if (x >= limit.importance)
@@ -34,6 +36,21 @@ export function getOrigins(limit) {
   };
   return origins;
 }
+
+export function changeCurrentBreakpoint(state, action) {
+    var tasks = state.tasks.slice();
+    var limit = {...state.limit};
+    limit.importance = Math.floor(cols[action.breakpoint]/2);
+    limit.maxWidth = cols[action.breakpoint];
+    limit.urgence = state.limit.urgence === 0 ? 2 : state.limit.urgence;
+    correctCollisions(tasks, limit);
+    return {
+        limit,
+        breakpoint : action.breakpoint,
+        tasks,
+    }
+}
+
 export function defaultLayout() {
     return {
         limit: {
