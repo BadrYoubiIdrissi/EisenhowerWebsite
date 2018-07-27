@@ -1,0 +1,23 @@
+.horDelim{
+    position: absolute;
+    width: 100%;
+    border:none;
+    border-top:0.2em dashed #dddddd;
+    transform: translateY(-50%);
+    height:0;
+    z-index: 1;
+    transition: top 0.5s;
+}
+.verDelim{
+    position: absolute;
+    height: 100%;
+    border:none;
+    border-left:0.2em dashed #dddddd;
+    transform: translateX(-50%);
+    width:0;
+    z-index: 1;
+    transition: left 0.5s;
+}
+
+
+

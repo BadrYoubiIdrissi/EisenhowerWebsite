@@ -1,0 +1,64 @@
+#UrgenceAxis{
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: $axisSize;
+    background-color: $axisColor;
+    z-index: 2;
+}
+
+#UrgenceLabel{
+    position: absolute;
+    bottom: -1.5*$labelSize;
+    left:$labelSize;
+    font-family: 'Bad Script';
+    font-size: $labelSize;
+}
+
+#UrgenceArrow{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform:translate((-$arrowSize/2)+($axisSize/2),0.9*$arrowSize);
+
+    width: 0; 
+    height: 0; 
+    border-left: $arrowSize/2 solid transparent;
+    border-right: $arrowSize/2 solid transparent;
+    
+    border-top: $arrowSize solid $axisColor;
+    z-index: 3;
+}
+
+#ImportanceAxis{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    height: $axisSize;
+    background-color: $axisColor;
+    z-index:2;
+}
+
+#ImportanceLabel{
+    position: absolute;
+    top: -2*$labelSize;
+    font-family: 'Bad Script';
+    font-size: $labelSize;
+    right: 0;
+}
+
+
+#ImportanceArrow{
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform:translate(0.9*$arrowSize,-($arrowSize/2)+($axisSize/2));
+
+    width: 0; 
+    height: 0; 
+    border-left: $arrowSize solid $axisColor;
+    border-top: $arrowSize/2 solid transparent;
+    border-bottom: $arrowSize/2 solid transparent;
+    z-index: 3;
+}
