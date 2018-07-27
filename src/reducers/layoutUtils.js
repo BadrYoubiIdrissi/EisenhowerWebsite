@@ -1,3 +1,19 @@
+import { categories, cols} from "../constants";
+export function getCategory(x ,y , limit){
+  if (y >= limit.urgence){
+    if (x >= limit.importance)
+      return categories.URGENT_IMPORTANT
+    else
+      return categories.URGENT_N_IMPORTANT
+  } else {
+    if (x >= limit.importance)
+      return categories.N_URGENT_IMPORTANT
+    else
+      return categories.N_URGENT_N_IMPORTANT
+  }
+}
+
+
 export function getOrigins(limit) {
   const origins = {};
   origins[categories.N_URGENT_N_IMPORTANT] = {
