@@ -1,3 +1,5 @@
+import {categories} from "../constants";
+import {getCategory, getOrigins} from "./layoutUtils";
 
 export function getMost(tasks, key, min = 0) {
   var max = min;
@@ -57,5 +59,40 @@ export function correctCollisions(tasks, limit){
       if(modification)
         correctCollisions(tasks, limit);
   })
+}
+
+export function resizeTask(state, action){
+  var tasks = state.tasks.slice();
+  var limit = {...state.limit};
+  var task = tasks.find(task => (task.id === action.task.id));
+  task.width = action.task.width;
+  task.height = action.task.height;
+  correctCollisions(tasks, limit);
+  return {
+    tasks,
+    limit: state.limit,
+    breakpoint: state.breakpoint
+  };
+}
+
+export function addTask(state, action){
+  var tasks = state.tasks.slice();
+  var limit = {...state.limit};
+  tasks.push({
+    id: String(tasks.length + 1),
+    name: action.task.content,
+    description: "",
+    category: action.task.category,
+    width: 2,
+    height: 2,
+    urgence: 0,
+    importance: 0
+  });
+  correctCollisions(tasks, limit);
+  return {
+    limit,
+    tasks,
+    breakpoint : state.breakpoint
+  };
 }
 
