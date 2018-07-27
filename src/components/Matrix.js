@@ -33,9 +33,8 @@ class Matrix extends React.Component{
     }
 
     generateLayouts(){
-      var layouts = {lg : []};
-
-      layouts.lg = this.props.tasks.map(function(task, i){
+      var layouts = {};
+      layouts[this.props.breakpoint] = this.props.tasks.map(function(task, i){
         return {
           i : String(task.id),
           x : task.importance,
@@ -49,7 +48,7 @@ class Matrix extends React.Component{
     }
 
     generatePostIts(){
-      return this.props.tasks.map(function(task, i){
+      const divs = this.props.tasks.map(function(task, i){
         /*This is for having the ref of the first task displayed
          (in order to calculate width of grid element) */
         var ref=null;
@@ -63,7 +62,10 @@ class Matrix extends React.Component{
           </div>
         );
       }.bind(this));
+    onBreakPointChange = (breakpoint) => {
+      this.props.changeCurrentBreakpoint(breakpoint);
     }
+
     onResize(layout, oldItem, newItem, placeholder){
       var w = newItem.w;
       var h = newItem.h;
@@ -93,7 +95,7 @@ class Matrix extends React.Component{
     }
 
     onDragStop(layout, oldItem, newItem){
-      this.props.moveTask(newItem.i, newItem.y, newItem.x);
+      this.props.moveTask(newItem.i, newItem.x, newItem.y);
     }
 
     onWidthChange() {
@@ -105,8 +107,8 @@ class Matrix extends React.Component{
     }
 
     render() {
-      const horDelStyle = {top:`${this.state.urgencyLimit*(this.state.itemWidth+10)+5}px`};
-      const verDelStyle = {left:`${this.state.importanceLimit*(this.state.itemWidth+10)+5}px`};
+      const horDelStyle = {top:`${this.props.limit.urgence*(this.state.itemWidth+10)+5}px`};
+      const verDelStyle = {left:`${this.props.limit.importance*(this.state.itemWidth+10)+5}px`};
       const urgDelim = (<div 
         className={"horDelim"}
         style={horDelStyle}/>);
