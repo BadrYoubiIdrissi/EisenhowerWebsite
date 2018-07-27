@@ -8,11 +8,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 class Matrix extends React.Component{
     constructor(props){
-      super(props)
-      this.default = {
-        breakpoints: {lg: 1800*0.70, md: 1200*0.7, sm: 900*0.9, xs: 600*0.95},
-        cols: {lg: 12, md: 10, sm: 6, xs: 4, xxs:2}
-      }
+      super(props);
 
       this.firstItem = {
         task : null,
