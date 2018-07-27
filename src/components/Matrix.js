@@ -15,6 +15,7 @@ class Matrix extends React.Component{
         ref : React.createRef()
       }
 
+      this.state = {itemWidth: 150, dummy: false}
 
       this.onWidthChange = this.onWidthChange.bind(this);
       this.onDragStop = this.onDragStop.bind(this);
@@ -43,7 +44,8 @@ class Matrix extends React.Component{
           h : task.height
         }
       });
-
+      if(this.state.dummy)
+        layouts[this.props.breakpoint].push({i:"DUMMY", x:Infinity, y:Infinity, w:1, h:1, static:true});
       return layouts;
     }
 
@@ -62,6 +64,17 @@ class Matrix extends React.Component{
           </div>
         );
       }.bind(this));
+
+      if(this.state.dummy)
+        divs.push(<div key="DUMMY" id="DUMMY"/>);
+      return divs;
+    } 
+
+    addRemoveDummy(){
+      this.setState({dummy:true});
+      setTimeout(() => this.setState({dummy:false}), 0);
+    }
+
     onBreakPointChange = (breakpoint) => {
       this.props.changeCurrentBreakpoint(breakpoint);
     }
@@ -94,8 +107,10 @@ class Matrix extends React.Component{
       console.log(this.props.tasks);
     }
 
+ 
     onDragStop(layout, oldItem, newItem){
       this.props.moveTask(newItem.i, newItem.x, newItem.y);
+      this.addRemoveDummy();
     }
 
     onWidthChange() {
@@ -137,7 +152,7 @@ class Matrix extends React.Component{
           onResizeStop={this.onResizeStop}
           preventCollision={true}
           onLayoutChange={this.onLayoutChange}
-          onDragStop={this.onDragStop}>
+          onDragStop={this.onDragStop}
           {this.generatePostIts()}
         </ResponsiveGridLayout>
       </div>
