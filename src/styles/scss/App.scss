@@ -7,3 +7,18 @@
     justify-content: space-between;
     align-items: center;
 }
+
+::-webkit-scrollbar{
+    width: 0.3em;
+    background: rgba(255,255,255,0);
+    box-shadow:none;
+}
+
+::-webkit-scrollbar-track{
+    box-shadow:none;
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background: rgba(200,200,200,0.8);
+}
+
