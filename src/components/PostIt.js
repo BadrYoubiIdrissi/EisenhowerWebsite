@@ -32,7 +32,7 @@ export default class PostIt extends React.Component{
         if(this.props.edit) {
           if( this.props.task.width === 2 && this.props.task.height === 2) {
             content = 
-            <div className="taskBody animated fadeIn">
+            <div className="taskBody">
               <form onSubmit={this.onSubmitEdit}>
                 <TextareaAutosize className="nameInput"
                        name="name"
@@ -49,7 +49,7 @@ export default class PostIt extends React.Component{
             </div>
           } else {
             content = 
-            <div className="taskBody animated fadeIn">
+            <div className="taskBody">
               <form onSubmit={this.onSubmitEdit}>
                 <TextareaAutosize className="nameInput"
                         name="name"
@@ -63,7 +63,7 @@ export default class PostIt extends React.Component{
         } else {
           if( this.props.task.width === 2 && this.props.task.height === 2) {
             content = 
-            <div className="taskBody animated fadeIn">
+            <div className="taskBody">
               <p className="name">{this.props.task.name}</p>
               <div className="seperator"/>
               <p className="description">
@@ -73,7 +73,7 @@ export default class PostIt extends React.Component{
             
           } else {
             content = 
-            <div className="taskBody animated fadeIn">
+            <div className="taskBody">
              <p className="name">{this.props.task.name}</p>
             </div>
           }
