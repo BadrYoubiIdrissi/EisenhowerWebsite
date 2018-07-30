@@ -1,13 +1,9 @@
-@import "breakpoints";
-@import "colorScheme";
+@import "../constants/breakpoints";
+@import "../constants/axis";
 @import "Arrows";
 @import "Delimitors";
 @import "PostIt";
 
-$arrowSize: 0.5em;
-$axisSize: 0.15em;
-$axisColor: #5353C1;
-$labelSize: 1em;
 
 #Matrix{
     @include for-phone-only{
