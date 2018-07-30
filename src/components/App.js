@@ -7,6 +7,9 @@ export default class App extends React.Component{
     render(){
         return (
             <div className="app">
+                <div id="header">
+                    <img src={require("../images/Logo.svg")} alt="logo" className="logo" />
+                </div>
                 <Matrix/>
                 <div id="PostItBlocks">
                     <PostItBlock id={categories.N_URGENT_N_IMPORTANT}/>
