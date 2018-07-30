@@ -1,5 +1,6 @@
 import {categories} from "../constants";
 import {getCategory, getOrigins} from "./layoutUtils";
+import {copy} from "../utils";
 
 export function getMost(tasks, key, min = 0) {
   var max = min;
@@ -23,6 +24,10 @@ export function getUrgenceImportance(x, y, category, limit){
     importance : x - origins[category].importance,
     urgence: y - origins[category].urgence
   } 
+}
+
+export function copyTasks(tasks){
+  return tasks.map((task) => copy(task));
 }
 
 export function correctCollisions(tasks, limit){
@@ -60,9 +65,9 @@ export function correctCollisions(tasks, limit){
 }
 
 export function resizeTask(state, action){
-  var tasks = state.tasks.slice();
-  var limit = {...state.limit};
-  var task = tasks.find(task => (task.id === action.task.id));
+  const tasks = copyTasks(state.tasks);
+  const limit = copy(state.limit);
+  const task = tasks.find(task => (task.id === action.task.id));
   task.width = action.task.width;
   task.height = action.task.height;
   correctCollisions(tasks, limit);
@@ -74,8 +79,8 @@ export function resizeTask(state, action){
 }
 
 export function addTask(state, action){
-  var tasks = state.tasks.slice();
-  var limit = {...state.limit};
+  const tasks = copyTasks(state.tasks);
+  const limit = copy(state.limit);
   tasks.push({
     id: String(tasks.length + 1),
     name: action.task.content,
@@ -116,8 +121,8 @@ export function submitEdit(state, action){
 }
 
 export function moveTask(state, action){
-  var tasks = state.tasks.slice();
-  var limit = {...state.limit};
+  var tasks = copyTasks(state.tasks);
+  var limit = copy(state.limit);
   var task = tasks.find(task => (task.id === action.task.id));
   task.category = getCategory(action.task.newX, action.task.newY, state.limit);
   const localPosition = getUrgenceImportance(action.task.newX, action.task.newY, task.category, state.limit)
