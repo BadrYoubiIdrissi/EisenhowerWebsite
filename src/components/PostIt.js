@@ -1,4 +1,5 @@
 import React from "react";
+import TextareaAutosize from 'react-autosize-textarea';
 
 export default class PostIt extends React.Component{
     constructor(props){
@@ -22,42 +23,47 @@ export default class PostIt extends React.Component{
       this.props.onSubmitEdit(this.props.task.id, this.state.name, this.state.description);
     }
 
-    componentWillReceiveProps(){
-      console.log("fuuuuuuuuuuuuuck");
-    }
-
     render(){
         var className = (this.props.task.width === 1 ?
                          "vertical " : this.props.task.height === 1 ?
-                         "horizontal " : "big ") + "PostIt " + this.props.task.category;
+                         "horizontal " : "big ") + "PostIt " 
+                         + this.props.task.category;
         var content;
         if(this.props.edit) {
           if( this.props.task.width === 2 && this.props.task.height === 2) {
             content = 
-            <div className="taskBody">
-              <form className="fadeIn" onSubmit={this.onSubmitEdit}>
-                <textarea className="nameInput"
+            <div className="taskBody animated fadeIn">
+              <form onSubmit={this.onSubmitEdit}>
+                <TextareaAutosize className="nameInput"
                        name="name"
                        value={this.state.name}
                        onChange={this.onChange}
-                       maxLength="40"/>
-                <textarea className="descriptionInput"
+                       maxRows={3}/>
+                <TextareaAutosize className="descriptionInput"
                           name="description"
                           value={this.state.description}
-                          onChange={this.onChange}/>
-                <button type="submit">Submit</button>
+                          onChange={this.onChange}
+                          maxRows={3}/>
+                <button type="submit" className="submit material-icons">save</button>
               </form>
             </div>
           } else {
             content = 
-            <div className="taskBody">
-              <p className="name">{this.props.task.name}</p>
+            <div className="taskBody animated fadeIn">
+              <form onSubmit={this.onSubmitEdit}>
+                <TextareaAutosize className="nameInput"
+                        name="name"
+                        value={this.state.name}
+                        onChange={this.onChange}
+                        maxRows={this.props.task.width === 2 ? 3 : 5}/>
+                <button type="submit" className="submit material-icons">save</button>
+              </form>
             </div>
           }
         } else {
           if( this.props.task.width === 2 && this.props.task.height === 2) {
             content = 
-            <div className="taskBody">
+            <div className="taskBody animated fadeIn">
               <p className="name">{this.props.task.name}</p>
               <div className="seperator"/>
               <p className="description">
@@ -67,7 +73,7 @@ export default class PostIt extends React.Component{
             
           } else {
             content = 
-            <div className="taskBody">
+            <div className="taskBody animated fadeIn">
              <p className="name">{this.props.task.name}</p>
             </div>
           }

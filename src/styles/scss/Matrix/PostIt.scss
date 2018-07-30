@@ -85,7 +85,7 @@
 .horizontal .taskHeader{
     background-color : rgb(240,240,240);
     mix-blend-mode: multiply;
-    margin: 0 10px 0 0;
+    margin: 0;
     flex-direction: column;
     justify-content: flex-start;
 }
@@ -110,7 +110,6 @@
         border-bottom: 2px dashed rgb(230,230,230);
         font-family: "Bad Script";
         font-size: 1em;
-        line-height: 1.5;
         resize: none;
         overflow: hidden;
         padding: 10px 0 10px 0;
@@ -131,7 +130,7 @@
         width: 100%;
         font-size: 0.75em;
         box-sizing: border-box;
-        padding:10px 5px 10px 0;
+        padding:0 5px 10px 0;
         transition: border-color 0.5s;
     }
 
@@ -140,10 +139,31 @@
         outline: none;
     }
 
+    .submit{
+        background: rgb(240,240,240);
+        color: rgb(180,180,180);
+        border-radius: 0.3em 0 0 0;
+        border:none;
+        position: absolute;
+        bottom:0;
+        right:0;
+        padding:0.2em;
+        transition: background-color 0.5s, color 0.5s;
+    }
+    .submit:focus{
+        outline:none;
+    }
+    .submit:hover {
+        background-color: rgb(220,220,220);
+        cursor: pointer;
+        color: rgb(255,255,255)
+    }
+
     .name {
         font-family: "Bad Script";
-        line-height: 1.5;
         margin: 10px 0 10px 0;
+        word-wrap:break-word;
+        overflow: auto;
     }
 
     .seperator{
@@ -154,7 +174,14 @@
     .description {
         font-size: 0.75em;
         margin: 10px 0 10px 0;
+        word-wrap:break-word;
+        overflow: auto;
     }
+}
+
+.horizontal .taskBody {
+    padding: 0 0 0 10px;
+    box-sizing: border-box;
 }
 
 .react-resizable-handle{
