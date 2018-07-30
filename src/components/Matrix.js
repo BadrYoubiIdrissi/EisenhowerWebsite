@@ -2,7 +2,8 @@ import React from "react";
 import {Responsive, WidthProvider} from "react-grid-layout";
 import {connect} from "react-redux";
 import PostIt from "./PostIt";
-import {moveTask, resizeTask, changeCurrentBreakpoint} from "../actions";
+import {moveTask, resizeTask, changeCurrentBreakpoint, deleteTask, taskDone, submitEdit} from "../actions";
+import {copy} from "../utils";
 import {getOrigins} from "../reducers/layoutUtils";
 import {breakpoints, cols} from "../constants";
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -16,11 +17,15 @@ class Matrix extends React.Component{
         ref : React.createRef()
       }
 
-      this.state = {itemWidth: 150, dummy: false}
+      this.state = {itemWidth: 150, dummy: false, edit:{}}
 
       this.onWidthChange = this.onWidthChange.bind(this);
       this.onDragStop = this.onDragStop.bind(this);
       this.onResizeStop = this.onResizeStop.bind(this);
+      this.onEdit = this.onEdit.bind(this);
+      this.onClose = this.onClose.bind(this);
+      this.onDone = this.onDone.bind(this);
+      this.onSubmitEdit = this.onSubmitEdit.bind(this);
     }
 
     componentDidMount(){
@@ -29,6 +34,7 @@ class Matrix extends React.Component{
       this.onWidthChange();
       this.onBreakPointChange("lg");
     }
+
     componentWillUnmount(){
       window.removeEventListener("resize", this.onWidthChange);
       window.removeEventListener("load", this.onWidthChange);
@@ -43,9 +49,10 @@ class Matrix extends React.Component{
           x : origins[task.category].importance+task.importance,
           y : origins[task.category].urgence+task.urgence,
           w : task.width,
-          h : task.height
+          h : task.height,
+          static: this.state.edit[task.id]
         }
-      });
+      }.bind(this));
       if(this.state.dummy)
         layouts[this.props.breakpoint].push({i:"DUMMY", x:Infinity, y:Infinity, w:1, h:1, static:true});
       return layouts;
@@ -62,7 +69,12 @@ class Matrix extends React.Component{
         }
         return (
           <div key={task.id} ref={ref}>
-            <PostIt task={task}/>
+            <PostIt task={task}
+                    onEdit={this.onEdit}
+                    onClose={this.onClose}
+                    onDone={this.onDone}
+                    onSubmitEdit={this.onSubmitEdit}
+                    edit={this.state.edit[task.id]}/>
           </div>
         );
       }.bind(this));
@@ -77,6 +89,28 @@ class Matrix extends React.Component{
       setTimeout(() => this.setState({dummy:false}), 0);
     }
 
+    onClose(id) {
+      this.props.deleteTask(id);
+    }
+    onDone(id) {
+      var task = this.props.tasks.find(task => task.id === id);
+      this.props.taskDone(task);
+      this.props.deleteTask(id);
+    }
+
+    onEdit(id){
+      const edit = copy(this.state.edit);
+      edit[id] = true;
+      this.setState({edit});
+    }
+
+    onSubmitEdit(id, name, description){
+      this.props.submitEdit(id, name, description)
+      const edit = copy(this.state.edit);
+      edit[id] = false;
+      this.setState({edit});
+    }
+
     onBreakPointChange = (breakpoint) => {
       this.props.changeCurrentBreakpoint(breakpoint);
     }
@@ -88,10 +122,8 @@ class Matrix extends React.Component{
         w = 2;
       if(h > 2)
         h = 2;
-      if((w === 2 && h === 1) 
-      || (w === 1 && h === 2) 
-      || (w === 1 && h === 1)){
-        w=1;
+      if(w === 1 && h === 1){
+        w=2;
         h=1;
       }
       else if(w === 2 && h === 2){
@@ -106,7 +138,6 @@ class Matrix extends React.Component{
     }
     onResizeStop(layout, oldItem, newItem){
       this.props.resizeTask(newItem.i, newItem.w, newItem.h);
-      console.log(this.props.tasks);
     }
 
  
@@ -172,7 +203,10 @@ function mapStateToProps(state){
 const mapDispatchToProps = {
   moveTask,
   resizeTask,
-  changeCurrentBreakpoint,
+  changeCurrentBreakpoint, 
+  deleteTask, 
+  taskDone,
+  submitEdit
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Matrix);
