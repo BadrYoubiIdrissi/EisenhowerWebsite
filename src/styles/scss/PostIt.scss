@@ -1,22 +1,18 @@
-#Matrix .PostIt {
+.PostIt {
     position: relative;
-    text-align: center;
-    font-family: "Bad Script";
+    font-family: "Calibri Light";
     transform-origin: center;
     height: 100%;
     width: 100%;
-    transition: font-size 0.5s;
+    transition: font-size 0.5s, background-color 0.5s;
+    display: flex;
 }
 
-#Matrix .small {
-    font-size: 0.5em;
+.big, .vertical {
+    flex-direction: column;
 }
 
-#Matrix .big {
-    font-size: 1em;
-}
-
-#Matrix .PostIt:before {
+.PostIt:before {
     z-index: -1;
     position: absolute;
     content: "";
@@ -27,18 +23,18 @@
     box-shadow: 0px 15px 10px rgba(100,100,100,0.5);
     transform: rotate(4deg);
 }
-#Matrix .PostIt:after {
-    content:"";
+.PostIt .paper {
     display: block;
     background-image: url(../../images/paper.png);
     background-repeat: repeat;
-    background-size: 60%;
+    background-size: 80%;
     width:100%;
     height:100%;
     position: absolute;
     top:0;
     left:0;
     mix-blend-mode: multiply;
+    z-index: 0;
 }
 
 .PostIt .light{
@@ -52,25 +48,130 @@
 }
 
 
-#Matrix .taskHeader {
-    height: 15%;
+.taskHeader {
     background-color : rgb(240,240,240);
     mix-blend-mode: multiply;
+    z-index:3;
+    display: flex;
+    justify-content: flex-end;  
 }
 
-#Matrix .URGENT_IMPORTANT{
+.taskHeader a{
+  float: left;
+  color: rgb(180,180,180);
+  text-align: center;
+  text-decoration: none;
+  mix-blend-mode: multiply;
+  line-height: 1.7em;
+  padding: 0.2em;
+  display: flex;
+  align-content: center;
+  transition: color 0.5s, background-color 0.5s;
+}
+
+.taskHeader i{
+    font-size: 0.8em;
+
+}
+
+.taskHeader a:hover{
+    background-color: rgb(200,190,190);
+    cursor: pointer;
+    color: rgb(255,255,255)
+}
+
+.horizontal .taskHeader{
+    background-color : rgb(240,240,240);
+    mix-blend-mode: multiply;
+    margin: 0 10px 0 0;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.horizontal .taskHeader a{
+    float: left;
+}
+
+.taskBody {
+    width: 85%;
+    height: 90%;
+    align-self: center;
+    align-items: stretch;
+    z-index: 2;
+    mix-blend-mode: multiply;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .nameInput {
+        border:none;
+        border-bottom: 2px dashed rgb(230,230,230);
+        font-family: "Bad Script";
+        font-size: 1em;
+        line-height: 1.5;
+        resize: none;
+        overflow: hidden;
+        padding: 10px 0 10px 0;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.5s;
+    }
+    .nameInput:focus {
+        border-bottom: 2px dashed rgb(180,180,180);
+        outline: none;
+    }
+
+    .descriptionInput{
+        border:none;
+        border-bottom: 2px dashed rgb(230,230,230);
+        resize: none;
+        font-family: "Calibri Light";
+        width: 100%;
+        font-size: 0.75em;
+        box-sizing: border-box;
+        padding:10px 5px 10px 0;
+        transition: border-color 0.5s;
+    }
+
+    .descriptionInput:focus{
+        border-bottom: 2px dashed rgb(180,180,180);
+        outline: none;
+    }
+
+    .name {
+        font-family: "Bad Script";
+        line-height: 1.5;
+        margin: 10px 0 10px 0;
+    }
+
+    .seperator{
+        border: none;
+        height: 2px;
+        background-color : rgb(230,230,230);
+    }
+    .description {
+        font-size: 0.75em;
+        margin: 10px 0 10px 0;
+    }
+}
+
+.react-resizable-handle{
+    z-index: 3;
+}
+
+.URGENT_IMPORTANT{
     background-color: $URGENT_IMPORTANT
 }
 
-#Matrix .N_URGENT_IMPORTANT{
+.N_URGENT_IMPORTANT{
     background-color: $N_URGENT_IMPORTANT
 }
 
-#Matrix .URGENT_N_IMPORTANT{
+.URGENT_N_IMPORTANT{
     background-color: $URGENT_N_IMPORTANT
 }
 
-#Matrix .N_URGENT_N_IMPORTANT{
+.N_URGENT_N_IMPORTANT{
     background-color: $N_URGENT_N_IMPORTANT
 }
 
