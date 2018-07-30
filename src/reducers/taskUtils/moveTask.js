@@ -3,6 +3,7 @@ import {correctCollisions} from "./collision";
 import {getUrgenceImportance} from "./getters";
 import copyTasks from "./copy";
 import {copy} from "../../utils";
+import adjustLimit from "./adjustLimit";
 
 export default function moveTask(state, action) {
   var tasks = copyTasks(state.tasks);
@@ -18,6 +19,7 @@ export default function moveTask(state, action) {
   task.urgence = localPosition.urgence;
   task.importance = localPosition.importance;
   correctCollisions(tasks, limit);
+  adjustLimit(tasks, limit);
   return {
     tasks,
     limit,
