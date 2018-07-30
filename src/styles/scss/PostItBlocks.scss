@@ -28,15 +28,17 @@
     justify-content: space-around;
     align-content: space-around;
     transition: transform 1s;
-    transform-origin: top;
     z-index: 3;
     @include for-phone-only{
+        transform-origin: top;
         width: 40%;
     }
     @include for-tablet-portrait-up{
+        transform-origin: top;
         width: 20%;
     }
     @include for-desktop-up{
+        transform-origin: bottom;
         font-size:2em;
     }
     margin: 2% 0% 2% 0%;
