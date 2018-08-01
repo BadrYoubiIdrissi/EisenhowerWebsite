@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export var actions = {
   ADD_TASK: "ADD_TASK",
   DELETE_TASK: "DELETE_TASK",
@@ -6,7 +8,17 @@ export var actions = {
   RESIZE_TASK: "RESIZE_TASK",
   SUBMIT_EDIT: "SUBMIT_EDIT",
   CHANGE_CURRENT_BREAKPOINT: "CHANGE_CURRENT_BREAKPOINT",
+  FETCH_TASKS:"FETCH_TASKS"
 };
+
+export function fetchTasks() {
+  var request = axios.get("/api/tasks");
+  console.log(request);
+  return {
+    type: actions.FETCH_TASKS,
+    payload: request
+  }
+}
 
 export function addTask(category, taskContent) {
   return {

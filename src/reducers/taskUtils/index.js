@@ -1,4 +1,5 @@
 import {correctCollisions} from "./collision";
+import fetchTasks from "./fetchTasks";
 import addTask from "./addTask";
 import deleteTask from "./deleteTask";
 import moveTask from "./moveTask";
@@ -9,6 +10,7 @@ import copyTasks from "./copy";
 
 export {
   correctCollisions,
+  fetchTasks,
   addTask, 
   copyTasks, 
   deleteTask, 

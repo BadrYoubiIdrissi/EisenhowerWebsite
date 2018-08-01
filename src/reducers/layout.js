@@ -1,9 +1,10 @@
 import { actions } from "../actions";
-import { resizeTask, moveTask, addTask, deleteTask, submitEdit } from "./taskUtils";
+import { resizeTask, moveTask, addTask, deleteTask, submitEdit, fetchTasks } from "./taskUtils";
 import { changeCurrentBreakpoint, defaultLayout } from "./layoutUtils";
 import { createReducer } from "./reducerUtils";
 
 var layoutObj = {};
+layoutObj[actions.FETCH_TASKS] = fetchTasks;
 layoutObj[actions.ADD_TASK] = addTask;
 layoutObj[actions.DELETE_TASK] = deleteTask
 layoutObj[actions.MOVE_TASK] = moveTask;

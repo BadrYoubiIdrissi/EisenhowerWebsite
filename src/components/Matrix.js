@@ -2,7 +2,7 @@ import React from "react";
 import {Responsive, WidthProvider} from "react-grid-layout";
 import {connect} from "react-redux";
 import PostIt from "./PostIt";
-import {moveTask, resizeTask, changeCurrentBreakpoint, deleteTask, taskDone, submitEdit} from "../actions";
+import {fetchTasks, moveTask, resizeTask, changeCurrentBreakpoint, deleteTask, taskDone, submitEdit} from "../actions";
 import {copy} from "../utils";
 import {getOrigins} from "../reducers/layoutUtils";
 import {breakpoints, cols} from "../constants";
@@ -32,7 +32,12 @@ class Matrix extends React.Component{
       window.addEventListener("resize", this.onWidthChange);
       window.addEventListener("load", this.onWidthChange);
       this.onWidthChange();
+      this.props.fetchTasks();
       this.onBreakPointChange("lg");
+    }
+    
+    componentDidUpdate(){
+      this.onWidthChange();
     }
 
     componentWillUnmount(){
@@ -150,7 +155,8 @@ class Matrix extends React.Component{
       if (this.firstItem.ref.current instanceof HTMLElement){
         const paddingOffset = this.firstItem.task.width === 2 ? 5 : 0
         const itemWidth = this.firstItem.ref.current.offsetWidth/this.firstItem.task.width - paddingOffset;
-        this.setState({itemWidth});
+        if(this.state.itemWidth !== itemWidth)
+          this.setState({itemWidth});
       } 
     }
 
@@ -206,7 +212,8 @@ const mapDispatchToProps = {
   changeCurrentBreakpoint, 
   deleteTask, 
   taskDone,
-  submitEdit
+  submitEdit,
+  fetchTasks
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Matrix);
