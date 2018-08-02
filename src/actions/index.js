@@ -1,28 +1,30 @@
-import axios from "axios";
 
 const actions = {
   ADD_TASK: "ADD_TASK",
-  addTask,
+  
   DELETE_TASK: "DELETE_TASK",
-  deleteTask,
+  
   TASK_DONE: "TASK_DONE",
-  taskDone,
   MOVE_TASK: "MOVE_TASK",
-  moveTask,
   RESIZE_TASK: "RESIZE_TASK",
-  resizeTask,
   SUBMIT_EDIT: "SUBMIT_EDIT",
-  submitEdit,
   CHANGE_CURRENT_BREAKPOINT: "CHANGE_CURRENT_BREAKPOINT",
-  changeCurrentBreakpoint,
   FETCH_TASKS:"FETCH_TASKS",
-  fetchTasks,
   CORRECT_COLLISIONS: "CORRECT_COLLISIONS",
-  correctCollisions,
   ADJUST_LIMIT:"ADJUST_LIMIT",
-  adjustLimit,
   CORRECT_TASKS: "CORRECT_TASKS",
   CORRECT_LIMIT: "CORRECT_LIMIT",
+  SYNC_TASKS: "SYNC_TASKS",
+  addTask,
+  deleteTask,
+  taskDone,
+  moveTask,
+  resizeTask,
+  submitEdit,
+  changeCurrentBreakpoint,
+  correctCollisions,
+  adjustLimit,
+  fetchTasks
 };
 
 function fetchTasks() {
@@ -31,13 +33,19 @@ function fetchTasks() {
   }
 }
 
-function addTask(category, taskContent) {
+function addTask(category, taskName) {
+  var task = {
+    name: taskName,
+    description: "",
+    category: category,
+    width: 2,
+    height: 2,
+    urgence: 0,
+    importance: 0
+  };
   return {
     type: actions.ADD_TASK,
-    task: {
-      category,
-      content: taskContent
-    }
+    task
   };
 }
 
