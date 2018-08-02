@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import App from "./components/App.js";
 import {Provider} from "react-redux";
 import {createStore, applyMiddleware, compose} from "redux";
-import promiseMiddleware from "redux-promise";
 import layoutMiddleware from "./middleware/layout";
+import serverMiddleware from "./middleware/server";
 import rootReducer from "./reducers";
 import "./styles/css/index.css";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 var store = createStore(rootReducer,
-    composeEnhancers(applyMiddleware(promiseMiddleware, layoutMiddleware))
+    composeEnhancers(applyMiddleware(serverMiddleware,layoutMiddleware))
 );
 
 ReactDOM.render(

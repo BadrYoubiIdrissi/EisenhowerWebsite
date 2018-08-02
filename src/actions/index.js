@@ -26,11 +26,8 @@ const actions = {
 };
 
 function fetchTasks() {
-  var request = axios.get("/api/tasks");
-  console.log(request);
   return {
-    type: actions.FETCH_TASKS,
-    payload: request
+    type: actions.FETCH_TASKS
   }
 }
 
