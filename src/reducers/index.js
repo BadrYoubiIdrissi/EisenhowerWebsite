@@ -1,8 +1,11 @@
 import {combineReducers} from "redux"; 
-import {layout} from "./layout";
-import {doneTasks} from "./doneTasks"
+import limit from "./limit";
+import tasks from "./tasks";
+import breakpoint from "./breakpoint";
 
 export default combineReducers({
-    layout,
-    doneTasks
+    limit,
+    tasks,
+    breakpoint
 })
+
