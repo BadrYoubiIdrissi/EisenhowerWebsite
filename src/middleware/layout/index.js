@@ -1,4 +1,4 @@
-import { actions } from "../../actions";
+import actions  from "../../actions";
 import { cols, categories } from "../../constants";
 import correctCollisions from "./collision";
 import { getMost, getCategory, getUrgenceImportance } from "./getters";

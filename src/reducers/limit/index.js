@@ -1,4 +1,4 @@
-import { actions } from "../../actions";
+import  actions  from "../../actions";
 
 const defaultLimit = {urgence:0, imporance:0, maxWidth:0};
 

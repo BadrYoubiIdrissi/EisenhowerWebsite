@@ -2,10 +2,7 @@ import React from "react";
 import {Responsive, WidthProvider} from "react-grid-layout";
 import {connect} from "react-redux";
 import PostIt from "./PostIt";
-import {fetchTasks, moveTask, resizeTask, changeCurrentBreakpoint, deleteTask, taskDone, submitEdit} from "../actions";
-import {copy} from "../utils";
-import {getOrigins} from "../reducers/layoutUtils";
-import {breakpoints, cols} from "../constants";
+import actions from "../actions";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 class Matrix extends React.Component{

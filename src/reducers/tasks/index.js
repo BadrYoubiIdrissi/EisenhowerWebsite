@@ -7,7 +7,7 @@ import submitEdit from "./submitEdit";
 import correctTasks from "./correctTasks";
 import taskDone from "./taskDone";
 import { createReducer } from "../reducerUtils";
-import { actions } from "../../actions";
+import actions from "../../actions";
 
 var tasks = {}
 

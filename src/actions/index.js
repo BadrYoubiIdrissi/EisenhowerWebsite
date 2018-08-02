@@ -1,17 +1,31 @@
 import axios from "axios";
 
-export var actions = {
+const actions = {
   ADD_TASK: "ADD_TASK",
+  addTask,
   DELETE_TASK: "DELETE_TASK",
+  deleteTask,
   TASK_DONE: "TASK_DONE",
+  taskDone,
   MOVE_TASK: "MOVE_TASK",
+  moveTask,
   RESIZE_TASK: "RESIZE_TASK",
+  resizeTask,
   SUBMIT_EDIT: "SUBMIT_EDIT",
+  submitEdit,
   CHANGE_CURRENT_BREAKPOINT: "CHANGE_CURRENT_BREAKPOINT",
-  FETCH_TASKS:"FETCH_TASKS"
+  changeCurrentBreakpoint,
+  FETCH_TASKS:"FETCH_TASKS",
+  fetchTasks,
+  CORRECT_COLLISIONS: "CORRECT_COLLISIONS",
+  correctCollisions,
+  ADJUST_LIMIT:"ADJUST_LIMIT",
+  adjustLimit,
+  CORRECT_TASKS: "CORRECT_TASKS",
+  CORRECT_LIMIT: "CORRECT_LIMIT",
 };
 
-export function fetchTasks() {
+function fetchTasks() {
   var request = axios.get("/api/tasks");
   console.log(request);
   return {
@@ -20,7 +34,7 @@ export function fetchTasks() {
   }
 }
 
-export function addTask(category, taskContent) {
+function addTask(category, taskContent) {
   return {
     type: actions.ADD_TASK,
     task: {
@@ -30,14 +44,14 @@ export function addTask(category, taskContent) {
   };
 }
 
-export function deleteTask(id) {
+function deleteTask(id) {
   return {
     type: actions.DELETE_TASK,
     id
   }
 }
 
-export function taskDone(task) {
+function taskDone(task) {
   return {
     type: actions.TASK_DONE,
     task
@@ -45,7 +59,7 @@ export function taskDone(task) {
 }
 
 
-export function moveTask(id, x, y) {
+function moveTask(id, x, y) {
   return {
     type: actions.MOVE_TASK,
     task: {
@@ -56,7 +70,7 @@ export function moveTask(id, x, y) {
   };
 }
 
-export function submitEdit(id, name, description){
+function submitEdit(id, name, description){
   return {
     type: actions.SUBMIT_EDIT,
     task: {
@@ -67,7 +81,7 @@ export function submitEdit(id, name, description){
   }
 }
 
-export function resizeTask(id, width, height) {
+function resizeTask(id, width, height) {
   return {
       type: actions.RESIZE_TASK,
       task: {
@@ -78,9 +92,19 @@ export function resizeTask(id, width, height) {
   };
 }
 
-export function changeCurrentBreakpoint(breakpoint) {
+function changeCurrentBreakpoint(breakpoint) {
   return {
     type: actions.CHANGE_CURRENT_BREAKPOINT,
     breakpoint : breakpoint
   }
 }
+
+function correctCollisions() {
+  return {type:actions.CORRECT_COLLISIONS}
+}
+
+function adjustLimit() {
+  return {type:actions.ADJUST_LIMIT}
+}
+
+export default actions;
