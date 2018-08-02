@@ -97,12 +97,10 @@ class Matrix extends React.PureComponent {
 
   onClose(id) {
     this.props.deleteTask(id);
-    this.props.adjustLimit();
   }
   onDone(id) {
     var task = this.props.tasks.find(task => task.id === id);
     this.props.taskDone(task);
-    this.props.adjustLimit();
   }
 
   onEdit(id) {
@@ -143,8 +141,6 @@ class Matrix extends React.PureComponent {
   }
   onResizeStop(layout, oldItem, newItem) {
     this.props.resizeTask(newItem.i, newItem.w, newItem.h);
-    this.props.correctCollisions();
-    this.props.adjustLimit();
   }
 
 
@@ -152,8 +148,6 @@ class Matrix extends React.PureComponent {
     if(oldItem.x !== newItem.x || oldItem.y !== newItem.y)
     {
       this.props.moveTask(newItem.i, newItem.x, newItem.y);
-      this.props.correctCollisions();
-      this.props.adjustLimit();
       this.addRemoveDummy();
     }
     

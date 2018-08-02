@@ -5,8 +5,8 @@ export default function correctCollisions(tasks, limit) {
     var nLimit = limit;
     var nTasks = tasks;
     const collisionCondition = t => task.id !== t.id && task.category === t.category
-    && t.urgence <= task.urgence && task.urgence < t.urgence + t.height
-    && t.importance <= task.importance && task.importance < t.importance + t.width;
+                                    && t.urgence <= task.urgence && task.urgence < t.urgence + t.height
+                                    && t.importance <= task.importance && task.importance < t.importance + t.width;
     for (var i = 0; i < nTasks.length; i++) {
         var task = nTasks[i];
         var collision = nTasks.find(collisionCondition);
