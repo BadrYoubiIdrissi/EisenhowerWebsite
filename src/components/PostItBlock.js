@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {addTask} from "../actions";
+import {actions} from "../actions";
 
 class PostItBlock extends React.Component{
 
@@ -14,6 +14,7 @@ class PostItBlock extends React.Component{
     handleSubmit = event => {
         event.preventDefault();
         this.props.addTask(this.category,this.state.value);
+        this.props.correctCollisions();
         this.setState({value:""});
     }
 
@@ -37,7 +38,8 @@ class PostItBlock extends React.Component{
 }
 
 const mapDispatchToProps = {
-    addTask
+    addTask : actions.addTask,
+    correctCollisions : actions.correctCollisions
 }
 
 export default connect(null, mapDispatchToProps)(PostItBlock);
