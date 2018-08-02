@@ -5,8 +5,7 @@ import PostIt from "./PostIt";
 import actions from "../actions";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-class Matrix extends React.Component{
-    constructor(props){
+class Matrix extends React.PureComponent {
       super(props);
 
       this.firstItem = {

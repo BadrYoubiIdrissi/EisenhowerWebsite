@@ -1,7 +1,7 @@
 import React from "react";
 import TextareaAutosize from 'react-autosize-textarea';
 
-export default class PostIt extends React.Component{
+export default class PostIt extends React.PureComponent{
     constructor(props){
       super(props);
       this.state = {
