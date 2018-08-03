@@ -8,7 +8,11 @@ export default class App extends React.Component{
         return (
             <div className="app">
                 <div id="header">
-                    <img src={require("../images/Logo.svg")} alt="logo" className="logo" />
+                    <div className ="container">
+                        <a className="button"><i className="material-icons">home</i></a>
+                        <img src={require("../images/Logo.svg")} alt="logo" className="logo" />
+                        <a className="button"><i className="material-icons">person</i></a>
+                    </div>
                 </div>
                 <Matrix/>
                 <div id="PostItBlocks">
