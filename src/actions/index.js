@@ -41,7 +41,8 @@ function addTask(category, taskName) {
     width: 2,
     height: 2,
     urgence: 0,
-    importance: 0
+    importance: 0,
+    done: false
   };
   return {
     type: actions.ADD_TASK,
