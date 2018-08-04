@@ -1,9 +1,8 @@
 
 const actions = {
+  HYDRATE:"HYDRATE",
   ADD_TASK: "ADD_TASK",
-  
   DELETE_TASK: "DELETE_TASK",
-  
   TASK_DONE: "TASK_DONE",
   MOVE_TASK: "MOVE_TASK",
   RESIZE_TASK: "RESIZE_TASK",
@@ -15,6 +14,11 @@ const actions = {
   CORRECT_TASKS: "CORRECT_TASKS",
   CORRECT_LIMIT: "CORRECT_LIMIT",
   SYNC_TASKS: "SYNC_TASKS",
+  ATTEMPT_LOGIN: "ATTEMPT_LOGIN",
+  SUCCESSFUL_LOGIN:"SUCCESSFUL_LOGIN",
+  ATTEMPT_REGISTER:"ATTEMPT_REGISTER",
+  SUCCESSFUL_REGISTER: "SUCCESSFUL_REGISTER",
+  LOGOUT: "LOGOUT",
   addTask,
   deleteTask,
   taskDone,
@@ -24,8 +28,17 @@ const actions = {
   changeCurrentBreakpoint,
   correctCollisions,
   adjustLimit,
-  fetchTasks
+  fetchTasks,
+  attemptLogin,
+  attemptRegister,
+  logout
 };
+
+function logout() {
+  return {
+    type: actions.LOGOUT
+  }
+}
 
 function fetchTasks() {
   return {
@@ -50,10 +63,10 @@ function addTask(category, taskName) {
   };
 }
 
-function deleteTask(id) {
+function deleteTask(_id) {
   return {
     type: actions.DELETE_TASK,
-    id
+    _id
   }
 }
 
@@ -65,33 +78,33 @@ function taskDone(task) {
 }
 
 
-function moveTask(id, x, y) {
+function moveTask(_id, x, y) {
   return {
     type: actions.MOVE_TASK,
     task: {
-      id,
+      _id,
       newX : x,
       newY : y
     }
   };
 }
 
-function submitEdit(id, name, description){
+function submitEdit(_id, name, description){
   return {
     type: actions.SUBMIT_EDIT,
     task: {
-      id,
+      _id,
       name,
       description
     }
   }
 }
 
-function resizeTask(id, width, height) {
+function resizeTask(_id, width, height) {
   return {
       type: actions.RESIZE_TASK,
       task: {
-        id,
+        _id,
         width,
         height
       }
@@ -111,6 +124,26 @@ function correctCollisions() {
 
 function adjustLimit() {
   return {type:actions.ADJUST_LIMIT}
+}
+
+function attemptLogin(username, password) {
+  return {
+    type:actions.ATTEMPT_LOGIN,
+    user: {
+      username,
+      password
+    }
+  }
+}
+
+function attemptRegister(username, password) {
+  return {
+    type:actions.ATTEMPT_REGISTER,
+    user: {
+      username,
+      password
+    }
+  }
 }
 
 export default actions;
