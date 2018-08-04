@@ -6,6 +6,7 @@ import actions from "../actions";
 import { getOrigins } from "../middleware/layout/getters";
 import { breakpoints, cols } from "../constants";
 import update from "immutability-helper";
+import {withRouter} from "react-router";
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 class Matrix extends React.PureComponent {
@@ -51,12 +52,12 @@ class Matrix extends React.PureComponent {
     const origins = getOrigins(this.props.limit);
     layouts[this.props.breakpoint] = this.props.tasks.map(function (task, i) {
       return {
-        i: String(task.id),
+        i: String(task._id),
         x: origins[task.category].importance + task.importance,
         y: origins[task.category].urgence + task.urgence,
         w: task.width,
         h: task.height,
-        static: this.state.edit[task.id]
+        static: this.state.edit[task._id]
       }
     }.bind(this));
     if (this.state.dummy)
@@ -74,13 +75,13 @@ class Matrix extends React.PureComponent {
         this.firstItem.task = task;
       }
       return (
-        <div key={task.id} ref={ref}>
+        <div key={task._id} ref={ref}>
           <PostIt task={task}
             onEdit={this.onEdit}
             onClose={this.onClose}
             onDone={this.onDone}
             onSubmitEdit={this.onSubmitEdit}
-            edit={this.state.edit[task.id]} />
+            edit={this.state.edit[task._id]} />
         </div>
       );
     }.bind(this));
@@ -95,22 +96,22 @@ class Matrix extends React.PureComponent {
     setTimeout(() => this.setState({ dummy: false }), 0);
   }
 
-  onClose(id) {
-    this.props.deleteTask(id);
+  onClose(_id) {
+    this.props.deleteTask(_id);
   }
-  onDone(id) {
-    var task = this.props.tasks.find(task => task.id === id);
+  onDone(_id) {
+    var task = this.props.tasks.find(task => task._id === _id);
     this.props.taskDone(task);
   }
 
-  onEdit(id) {
-    var edit = update(this.state.edit, { [id]: { $set: true } });
+  onEdit(_id) {
+    var edit = update(this.state.edit, { [_id]: { $set: true } });
     this.setState({ edit });
   }
 
-  onSubmitEdit(id, name, description) {
-    this.props.submitEdit(id, name, description)
-    var edit = update(this.state.edit, { [id]: { $set: false } });
+  onSubmitEdit(_id, name, description) {
+    this.props.submitEdit(_id, name, description)
+    var edit = update(this.state.edit, { [_id]: { $set: false } });
     this.setState({ edit });
   }
 
@@ -220,4 +221,4 @@ const mapDispatchToProps = {
   adjustLimit: actions.adjustLimit
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Matrix);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Matrix));
