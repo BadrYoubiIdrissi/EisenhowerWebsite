@@ -1,0 +1,97 @@
+@import "constants/breakpoints";
+@import "constants/colorScheme";
+
+.account-container {
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login-container {
+    margin-top: 3em;
+    @include for-phone-only{
+        width: 80%;
+    }
+    @include for-tablet-portrait-up{
+        width: 60%;
+    }
+    @include for-tablet-landscape-up{
+        width: 40%;
+    }
+    @include for-desktop-up{
+        width:30%;
+    }
+    height:20em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to top right, $N_URGENT_N_IMPORTANT, $N_URGENT_N_IMPORTANT+#111);
+    box-shadow: 0 0 20px rgba(200,200,200,0.7);
+    border-radius: 24px;
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        margin: 1em;
+        input{
+            border:0;
+            padding:10px;
+            border-radius: 7.5px;
+            box-shadow: 0 0 20px rgba(180,180,180,0.5);
+            transition: box-shadow 0.5s;
+            margin: 2.5em 0 0 0;
+        }
+        input:focus, input:hover{
+            outline: 0;
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.5);
+        }
+
+        .submit{
+            align-self: flex-end;
+            margin: 2.5em 0 0 0;
+            border-radius: 7.5px;
+            box-shadow: 0 0 20px rgba(180,180,180,0.5);
+            background: none;
+            background-color: #00C1DE;
+            color: #FEFEFE;
+            border:none;
+            padding: 10px 20px 10px 20px; 
+            font-size: 0.7em;
+            cursor: pointer;
+            transition: background-color 0.5s;
+        }
+        .submit:hover{
+            background-color: #FFB259
+        }
+        .submit:focus{
+            outline:none;
+        }
+    }
+
+    .title {
+        font-family: "Lemon/Milk light";
+        text-align: center;
+        color: #FEFEFE;
+        width:100%;
+        background: linear-gradient(to top right, #00C1DE, #00C1DE + #111);
+        margin: 0 0 0 0;
+        border-radius: 24px 24px 0 0;
+        display:flex;
+        justify-content: space-around;
+        align-content: flex-end;
+        padding-top: 10px;
+        h3 {
+            margin:0;
+            padding: 10px 20px 10px 20px;
+            border-radius: 15px 15px 0 0;
+            transition: background-color 0.5s;
+        }
+        h3:hover{
+            background-color: #00C1DE - #111;
+        }
+        .active {
+            background-color: #00C1DE - #110;
+        }
+    }
+}
+
