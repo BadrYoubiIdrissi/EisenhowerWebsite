@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import actions from "../actions";
+import {withRouter} from "react-router";
 
 class PostItBlock extends React.Component{
 
@@ -42,4 +43,4 @@ const mapDispatchToProps = {
     correctCollisions : actions.correctCollisions
 }
 
-export default connect(null, mapDispatchToProps)(PostItBlock);
+export default withRouter(connect(null, mapDispatchToProps)(PostItBlock));
