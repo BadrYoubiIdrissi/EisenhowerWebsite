@@ -1,28 +1,22 @@
 import React from "react";
-import Matrix from "./Matrix";
-import PostItBlock from "./PostItBlock"
-import {categories} from "../constants";
+import Account from "./Account";
+import Notifications from "./Notifications";
+import Eisenhower from "./Eisenhower";
+import Header from "./Header";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-export default class App extends React.Component{
-    render(){
-        return (
-            <div className="app">
-                <div id="header">
-                    <div className ="container">
-                        <a className="button"><i className="material-icons">home</i></a>
-                        <img src={require("../images/Logo.svg")} alt="logo" className="logo" />
-                        <a className="button"><i className="material-icons">person</i></a>
-                    </div>
-                </div>
-                <Matrix/>
-                <div id="PostItBlocks">
-                    <PostItBlock id={categories.N_URGENT_N_IMPORTANT}/>
-                    <PostItBlock id={categories.URGENT_N_IMPORTANT}/>
-                    <PostItBlock id={categories.N_URGENT_IMPORTANT}/>
-                    <PostItBlock id={categories.URGENT_IMPORTANT}/>
-                </div>
-            </div>
-            
-        );
-    }
+export default class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div className="app">
+          <Notifications />
+          <Header />
+          <Route path="/login" component={Account} />
+          <Route exact path="/" component={Eisenhower} />
+        </div>
+      </Router>
+    );
+  }
 }
+
