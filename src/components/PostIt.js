@@ -20,7 +20,7 @@ export default class PostIt extends React.PureComponent{
 
     onSubmitEdit(event) {
       event.preventDefault();
-      this.props.onSubmitEdit(this.props.task.id, this.state.name, this.state.description);
+      this.props.onSubmitEdit(this.props.task._id, this.state.name, this.state.description);
     }
 
     render(){
@@ -82,9 +82,9 @@ export default class PostIt extends React.PureComponent{
         return(
           <div className={className}>
             <div className="taskHeader">
-              <a onClick={() => this.props.onEdit(this.props.task.id)}><i className="material-icons">edit</i></a>
-              <a onClick={() => this.props.onClose(this.props.task.id)}><i className="material-icons">close</i></a>
-              <a onClick={() => this.props.onDone(this.props.task.id)}><i className="material-icons">done</i></a>
+              <a onClick={() => this.props.onEdit(this.props.task._id)}><i className="material-icons">edit</i></a>
+              <a onClick={() => this.props.onClose(this.props.task._id)}><i className="material-icons">close</i></a>
+              <a onClick={() => this.props.onDone(this.props.task._id)}><i className="material-icons">done</i></a>
             </div>
             <div className="light"/>
             <div className="paper"/>

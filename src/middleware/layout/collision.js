@@ -4,7 +4,7 @@ import { categories } from "../../constants";
 export default function correctCollisions(tasks, limit) {
     var nLimit = limit;
     var nTasks = tasks;
-    const collisionCondition = t => task.id !== t.id && task.category === t.category
+    const collisionCondition = t => task._id !== t._id && task.category === t.category
                                     && t.urgence <= task.urgence && task.urgence < t.urgence + t.height
                                     && t.importance <= task.importance && task.importance < t.importance + t.width;
     for (var i = 0; i < nTasks.length; i++) {
