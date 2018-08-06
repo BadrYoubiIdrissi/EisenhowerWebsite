@@ -1,6 +1,6 @@
 import  actions  from "../../actions";
 
-const defaultLimit = {urgence:0, imporance:0, maxWidth:0};
+const defaultLimit = {urgence:2, importance:6, maxWidth:12};
 
 export default function limit(state =  defaultLimit, action){
     switch(action.type){

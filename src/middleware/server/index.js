@@ -37,6 +37,7 @@ export default store => next => action => {
     case actions.HYDRATE:
       axios.get("/api/user").then(res => {
         var state = store.getState();
+        if(action.callback) action.callback();
         if (res.data.user) {
           axios.get("/api/tasks").then(taskRes => {
             action.payload = {
@@ -47,7 +48,6 @@ export default store => next => action => {
               notifications: state.notifications
             };
             next(action);
-            if(action.callback) action.callback();
             notifySuccess(store, "Connected as: " + res.data.user);
           });
         } else {

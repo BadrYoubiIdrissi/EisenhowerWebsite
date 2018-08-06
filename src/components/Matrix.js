@@ -1,13 +1,14 @@
 import React from "react";
-import { Responsive, WidthProvider } from "react-grid-layout";
+import { Responsive } from "react-grid-layout";
+import { withSize } from "react-sizeme";
 import { connect } from "react-redux";
 import PostIt from "./PostIt";
 import actions from "../actions";
 import { getOrigins } from "../middleware/layout/getters";
 import { breakpoints, cols } from "../constants";
 import update from "immutability-helper";
-import {withRouter} from "react-router";
-const ResponsiveGridLayout = WidthProvider(Responsive);
+import { withRouter } from "react-router";
+const ResponsiveGridLayout = Responsive;
 
 class Matrix extends React.PureComponent {
   constructor(props) {
@@ -33,8 +34,6 @@ class Matrix extends React.PureComponent {
     window.addEventListener("resize", this.onWidthChange);
     window.addEventListener("load", this.onWidthChange);
     this.onWidthChange();
-    this.props.fetchTasks();
-    this.onBreakPointChange("lg");
   }
 
 
@@ -45,6 +44,17 @@ class Matrix extends React.PureComponent {
   componentWillUnmount() {
     window.removeEventListener("resize", this.onWidthChange);
     window.removeEventListener("load", this.onWidthChange);
+  }
+
+  currentBreakpoint() {
+    var curr = "xs";
+    var bps = ["xs", "sm", "md", "lg"];
+    for(var bp of bps){
+      if(this.props.size.width >= breakpoints[bp]){
+        curr = bp;
+      }
+    }
+    return curr;
   }
 
   generateLayouts() {
@@ -68,7 +78,7 @@ class Matrix extends React.PureComponent {
   generatePostIts() {
     const divs = this.props.tasks.map(function (task, i) {
       /*This is for having the ref of the first task displayed
-       (in order to calculate width of grid element) */
+      (in order to calculate width of grid element) */
       var ref = null;
       if (i === 0) {
         ref = this.firstItem.ref;
@@ -155,6 +165,9 @@ class Matrix extends React.PureComponent {
   }
 
   onWidthChange() {
+    var curr = this.currentBreakpoint();
+    if (this.currentBreakpoint() !== this.props.breakpoint)
+      this.onBreakPointChange(curr);
     if (this.firstItem.ref.current instanceof HTMLElement) {
       const paddingOffset = this.firstItem.task.width === 2 ? 5 : 0
       const itemWidth = this.firstItem.ref.current.offsetWidth / this.firstItem.task.width - paddingOffset;
@@ -174,8 +187,8 @@ class Matrix extends React.PureComponent {
       style={verDelStyle} />);
     return (
       <div id="Matrix">
-        {urgDelim}
-        {impDelim}
+        {this.props.tasks.length !== 0 ? urgDelim : null}
+        {this.props.tasks.length !== 0 ? impDelim : null}
         <div id="ImportanceArrow" />
         <div id="UrgenceArrow" />
         <div id="ImportanceAxis" />
@@ -189,6 +202,7 @@ class Matrix extends React.PureComponent {
           rowHeight={this.state.itemWidth}
           onBreakpointChange={this.onBreakPointChange}
           compactType={null}
+          width={this.props.size.width}
           onResize={this.onResize}
           onResizeStop={this.onResizeStop}
           onLayoutChange={this.onLayoutChange}
@@ -221,4 +235,4 @@ const mapDispatchToProps = {
   adjustLimit: actions.adjustLimit
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Matrix));
+export default withRouter(withSize()(connect(mapStateToProps, mapDispatchToProps)(Matrix)));

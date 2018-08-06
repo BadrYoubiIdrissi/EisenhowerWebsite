@@ -38,12 +38,14 @@ export default class PostIt extends React.PureComponent{
                        name="name"
                        value={this.state.name}
                        onChange={this.onChange}
-                       maxRows={3}/>
+                       maxRows={3}
+                       maxLength={40}/>
                 <TextareaAutosize className="descriptionInput"
                           name="description"
                           value={this.state.description}
                           onChange={this.onChange}
-                          maxRows={3}/>
+                          maxRows={3}
+                          maxLength={300}/>
                 <button type="submit" className="submit material-icons">save</button>
               </form>
             </div>

@@ -9,8 +9,8 @@ class Eisenhower extends React.Component {
   render() {
     return this.props.user ? (
       <div className="matrix-container">
-        <Matrix key="1" />
-        <div key="2" id="PostItBlocks">
+        <Matrix/>
+        <div id="PostItBlocks">
           <PostItBlock id={categories.N_URGENT_N_IMPORTANT} />
           <PostItBlock id={categories.URGENT_N_IMPORTANT} />
           <PostItBlock id={categories.N_URGENT_IMPORTANT} />
