@@ -37,30 +37,17 @@ export default store => next => action => {
     case actions.HYDRATE:
       axios.get("/api/user").then(res => {
         var state = store.getState();
+        action.payload = {
+          limit: state.limit,
+          tasks: state.tasks,
+          breakpoint: state.breakpoint,
+          user: res.data.user,
+          notifications: state.notifications
+        };
         if(action.callback) action.callback();
-        if (res.data.user) {
-          axios.get("/api/tasks").then(taskRes => {
-            action.payload = {
-              limit: state.limit,
-              tasks: taskRes.data,
-              breakpoint: state.breakpoint,
-              user: res.data.user,
-              notifications: state.notifications
-            };
-            next(action);
-            notifySuccess(store, "Connected as: " + res.data.user);
-          });
-        } else {
-          action.payload = {
-            limit: state.limit,
-            tasks: [],
-            breakpoint: state.breakpoint,
-            user: res.data.user,
-            notifications: state.notifications
-          };
-          next(action);
-          if(action.callback) action.callback();
-        }
+        next(action);
+        notifySuccess(store, "Connected as: " + res.data.user);
+        if (res.data.user) store.dispatch(actions.fetchTasks());
       });
       break;
     case actions.LOGOUT:
