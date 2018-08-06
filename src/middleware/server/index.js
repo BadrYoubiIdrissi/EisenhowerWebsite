@@ -46,8 +46,10 @@ export default store => next => action => {
         };
         if(action.callback) action.callback();
         next(action);
-        notifySuccess(store, "Connected as: " + res.data.user);
-        if (res.data.user) store.dispatch(actions.fetchTasks());
+        if (res.data.user) {
+          notifySuccess(store, "Connected as: " + res.data.user);
+          store.dispatch(actions.fetchTasks());
+        }
       });
       break;
     case actions.LOGOUT:
