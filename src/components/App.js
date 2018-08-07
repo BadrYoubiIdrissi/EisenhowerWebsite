@@ -1,5 +1,5 @@
 import React from "react";
-import Account from "./Account";
+import Login from "./Login";
 import Notifications from "./Notifications";
 import Eisenhower from "./Eisenhower";
 import Header from "./Header";
@@ -10,9 +10,9 @@ export default class App extends React.Component {
     return (
       <Router>
         <div className="app">
-          <Notifications />
+          <Notifications /> 
           <Header />
-          <Route path="/login" component={Account} />
+          <Route path="/login" component={Login} />
           <Route exact path="/" component={Eisenhower} />
         </div>
       </Router>

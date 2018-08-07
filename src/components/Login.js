@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router";
 import actions from "../actions";
 
-class Account extends React.Component{
+/* This compononent is a controlled form to register/login to account. It triggers the ATTEMPT_LOGIN and ATTEMPT_REGISTER actions */
+
+class Login extends React.Component{
     constructor(props){
         super(props);
         this.state={username:"",password:"", activeTab:"login"};
@@ -20,6 +22,8 @@ class Account extends React.Component{
         else if(this.state.activeTab === "register")
             this.props.attemptRegister(this.state.username, this.state.password);
     }
+
+    //functions to switch tabs
 
     toLogin = () => {
         this.setState({activeTab:"login"});
@@ -72,4 +76,4 @@ const mapDispatchToProps = {
     attemptRegister : actions.attemptRegister
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Account));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

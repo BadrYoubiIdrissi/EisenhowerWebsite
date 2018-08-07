@@ -5,6 +5,7 @@ import { categories } from "../constants";
 import { Redirect, withRouter } from "react-router";
 import { connect } from "react-redux";
 
+//This is a wrapper for the Matrix component and PostItBlocks component
 class Eisenhower extends React.Component {
   render() {
     return this.props.user ? (
@@ -23,6 +24,4 @@ class Eisenhower extends React.Component {
   }
 }
 
-export default withRouter(
-  connect(state => ({ user: state.user }))(Eisenhower)
-);
+export default withRouter(connect(state => ({ user: state.user }))(Eisenhower));

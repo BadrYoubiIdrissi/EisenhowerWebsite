@@ -1,3 +1,5 @@
+/* This is a react + redux notifications system for informing the user about errors / successful operations */
+
 import React from "react";
 import {connect} from "react-redux"; 
 import NotificationSystem from "react-notification-system-redux";

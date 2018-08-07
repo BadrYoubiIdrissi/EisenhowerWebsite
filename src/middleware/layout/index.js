@@ -1,4 +1,4 @@
-import actions  from "../../actions";
+import actions from "../../actions";
 import { cols, categories } from "../../constants";
 import correctCollisions from "./collision";
 import { getMost, getCategory, getUrgenceImportance } from "./getters";
@@ -11,29 +11,32 @@ const ADJUST_LIMIT_ACTIONS = [actions.RESIZE_TASK, actions.TASK_DONE, actions.DE
 export default store => next => action => {
     var state;
     var limit;
-    
+
 
     switch (action.type) {
+
         case actions.CORRECT_COLLISIONS:
+
             state = store.getState();
             var tasks = state.tasks.filter(task => !task.done);
             const layout = correctCollisions(tasks, state.limit);
-            if (layout.tasks !== tasks){
+            if (layout.tasks !== tasks) {
                 store.dispatch({ type: actions.CORRECT_TASKS, tasks: layout.tasks });
             }
-                
+
             if (layout.limit !== state.limit)
                 store.dispatch({ type: actions.CORRECT_LIMIT, limit: layout.limit });
             break;
 
         case actions.ADJUST_LIMIT:
+
             state = store.getState();
             limit = state.limit;
             const task = getMost(state.tasks.filter((task) =>
                 !task.done && (task.category === categories.N_URGENT_N_IMPORTANT
-                || task.category === categories.N_URGENT_IMPORTANT)) , "urgence");
+                    || task.category === categories.N_URGENT_IMPORTANT)), "urgence");
             limit = update(limit, { urgence: { $set: task ? task.urgence + task.height : 1 } });
-            if(limit !== state.limit){
+            if (limit !== state.limit) {
                 store.dispatch({ type: actions.CORRECT_LIMIT, limit });
                 store.dispatch(actions.correctCollisions());
             }
@@ -70,11 +73,12 @@ export default store => next => action => {
             break;
 
         default:
-            next(action);
-            if(POSSIBLE_COLLISION_ACTIONS.includes(action.type))
-                store.dispatch(actions.correctCollisions());
         
-            if(ADJUST_LIMIT_ACTIONS.includes(action.type))
+            next(action);
+            if (POSSIBLE_COLLISION_ACTIONS.includes(action.type))
+                store.dispatch(actions.correctCollisions());
+
+            if (ADJUST_LIMIT_ACTIONS.includes(action.type))
                 store.dispatch(actions.adjustLimit());
     }
 }

@@ -1,4 +1,6 @@
 
+// All the actions and action creators are in this object
+
 const actions = {
   HYDRATE:"HYDRATE",
   ADD_TASK: "ADD_TASK",

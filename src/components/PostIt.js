@@ -1,6 +1,8 @@
 import React from "react";
 import TextareaAutosize from 'react-autosize-textarea';
 
+// Post it note component that renders depending on state and provides controlled forms for editting.
+
 export default class PostIt extends React.PureComponent{
     constructor(props){
       super(props);
