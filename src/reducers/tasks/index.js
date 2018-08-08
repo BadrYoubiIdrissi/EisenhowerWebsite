@@ -11,6 +11,10 @@ import actions from "../../actions";
 
 var tasks = {}
 
+//  This is the most used reducer and so to facilitate readability
+//  instead of making switch statements we create the reducer from an object
+//  This reducer just redirects the state and action to the correct reducer
+
 tasks[actions.FETCH_TASKS] = fetchTasks;
 tasks[actions.ADD_TASK] = addTask;
 tasks[actions.DELETE_TASK] = deleteTask

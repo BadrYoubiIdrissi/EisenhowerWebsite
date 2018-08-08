@@ -4,9 +4,16 @@ import correctCollisions from "./collision";
 import { getMost, getCategory, getUrgenceImportance } from "./getters";
 import update from "immutability-helper";
 
+
+/* This middleware controles handles all the layout logic that requires the knowledge
+    of multiple parts of the state. I decided to do it this way as to avoid deeply nested state objects.
+    In the beginning the state had a layout object that contained the tasks, the limits and the breakpoint.
+    
+    This is a standard redux middleware that takes the store, the next middleware to call and the action and 
+    does a switch statement on it. */
+
 const POSSIBLE_COLLISION_ACTIONS = [actions.RESIZE_TASK, actions.ADD_TASK, actions.FETCH_TASKS];
 const ADJUST_LIMIT_ACTIONS = [actions.RESIZE_TASK, actions.TASK_DONE, actions.DELETE_TASK];
-
 
 export default store => next => action => {
     var state;
@@ -18,8 +25,8 @@ export default store => next => action => {
         case actions.CORRECT_COLLISIONS:
 
             state = store.getState();
-            var tasks = state.tasks.filter(task => !task.done);
-            const layout = correctCollisions(tasks, state.limit);
+            var tasks = state.tasks.filter(task => !task.done); // Only check for collisions within the tasks that are not done
+            const layout = correctCollisions(tasks, state.limit); 
             if (layout.tasks !== tasks) {
                 store.dispatch({ type: actions.CORRECT_TASKS, tasks: layout.tasks });
             }
